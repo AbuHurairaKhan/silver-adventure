@@ -1,0 +1,6082 @@
+comment @
+
+COAL Project Fall 2016
+
+Group Members
+
+1) Abu Huraira Khan ( i15-0455 , Section : D) 
+2) Sarmad Ajmal ( i15-0720 , Section : D) 
+@
+
+.model large
+.stack
+.data
+robot struc   ;=======structure======= 
+x db ?  ;to change 25
+y db ?  ;19
+colur db ?  ;130
+robot_a db '\ / _^_',"$"
+robot_b db ' | (. .)',"$"
+robot_c db ' |  |_| ',"$"
+robot_d db ' ||=====|',"$"
+robot_e db ' ||ROBOT|',"$"
+robot_g db ' ||+++++|',"$"
+robot_h db     '= =',"$"
+robot_j db    '__ __',"$"
+
+;second choce of robot
+sec_robot_a db '|  _^_',"$" ;6
+sec_robot_b db '| |.|.|',"$" ;7
+sec_robot_c db '| |_^_|',"$" ;7
+sec_robot_d db '||=====|',"$" ;8
+sec_robot_e db '\|ROBOT|',"$"  ;8
+sec_robot_g db  '|+++++|',"$" ;7
+sec_robot_h db    '= =',"$"
+sec_robot_j db   '__ __',"$"
+
+robot ends    ;=======================
+
+jet struc ;--------- structure -------
+x db ?   ;to change 9
+y db ?  ;1
+colur db ? ;139
+jet_a db '|_|/|\|_|',"$"
+jet_b db  '\@\|/@/',"$"
+jet_c db   '\\^//',"$"
+jet_d db    '\v/',"$"
+
+sec_jet_a db 'V_|||||_V',"$"
+sec_jet_b db  'V\|||/V',"$"
+sec_jet_c db   'V\|/V',"$"
+sec_jet_d db    '\V/',"$"
+jet ends  ;---------------------------
+
+r1 robot <>   ; r1 is object of robot
+j1 jet <>   ; j1 is object of jet
+j2 jet <> 
+jex jet <>  ;for front page
+j3 jet <>  ;for jet3
+
+coming_time_for_jet2 db 100
+timer_for_speed db 250
+multi_by_life db 50      ;to change when want to increase score by remaining life
+time_for_coin_to_came db 120
+colour_of_coin db ?
+var1 db ?
+check db ?
+var2 db ?
+var2j2 db ?
+var2r1 db ?
+var3 db ?
+var4 db ?
+var4j2 db ?
+var4r1 db ?
+var5 db ?
+var5j2 db ?
+var5r1 db ?
+varii1 db ?
+checkj2 db ?
+lifer1 db 10
+lifej1 db 10
+lifej2 db 10
+lifej3 db 10
+checkyes db ?
+checkyes2 db ?
+checkyes3 db ?
+chackoo db ?
+chk_robo_win db ?
+var_for_time db ?
+chk_last1 db ?
+chk_last2 db ?
+chk_last3 db ?
+chk_last3j3 db ?
+chk_last4 db ?
+chk_last2j3 db ? 
+life_outj1 db ?
+life_outj2 db ?
+life_outj3 db ?
+life_outr1 db ?
+chk_start1 db 1
+chk_start2 db 0
+chk_start3 db 0
+check_for_sound1 db ?
+check_for_mouse db ?
+only_chng_chk db ?
+var_for_load db ?
+totall_scori dw 0
+ckh_spce db ?
+var_mouse_shoot db ?
+chk_for_restart db 0   ;making zero down will goto main menu directly after win/lose
+digits db 0
+left_button db ?    ;for mouse
+pace_varij1 db ?   ;for jets space
+pace_varij2 db ?   ;for jets space
+pace_varij3 db ?   ;for jets space
+front_page_var db "Press Enter to continue",'$'
+chk_for_level2 db 0   ;for _level2
+
+;//////////////new_variables////////////////
+chk_for_level3 db 0  ;for level3
+var_coin_y db ?   
+var_coin_x db ?
+var4coin db ?
+var5coin db ?
+var2coin db ?
+var_co_x db ?
+chk_for_coin db 0
+month db 0
+year dw 0
+;//////////////new_variables////////////////
+
+checkj3 db ?  ;;for _level2
+var1j3 db ?  ;for _level2
+var2j3 db ?   ;for _level2
+var5j3 db ?    ;for _level2
+var4j3 db ?    ;for _level2
+starting_pacej1 db ?
+ending_pacej1 db ? 
+starting_pacej2 db ?
+ending_pacej2 db ?
+starting_pacej3 db ?
+ending_pacej3 db ?
+chk_second_robo db ?
+chk_sec_jet db ?
+al_value db ?
+simple_var_for_name db ?
+
+pause_opt db "Press p to pause",'$'
+contin_opt db "Press c to cont.",'$'
+;;;-------------------stats-----
+stats db "Stats",'$'
+robot_life db "Robot Health",'$'
+jet1_life db "Jet 1 health",'$'
+jet2_life db "Jet 2 health",'$'
+jet3_life db "Jet 3 health",'$'
+scorestr db "Total score:",'$'
+;;----------------------------------
+
+;??????????????????menu??????????????
+str_logo db      " ____.       __",'$' ;15                                
+str_logo2 db     "|    | _____/  |_  ______   ___  _______ _______",'$'  ;46 
+str_logo3 db     "|    |/ __ \   __\/  ___/   \  \/ /\__  \\_  __ \",'$' ;49
+str_logo4 db "/\__|    \  ___/|  |  \___ \     \   /  / __ \|  | \/",'$' ;53
+str_logo5 db "\________|\___  >__| /____  >     \_/  (____  /__|",'$'  ;50   
+str_logo6 db               "\/          \/                \/",'$' ;32 
+
+str_logo_won db  "$$\     $$\                    $$\      $$\",'$' ;43
+str_logo_won2 db "\$$\   $$  |                   $$ | $\  $$ |",'$' ;44
+str_logo_won3 db  "\$$\ $$  $$$$$$\ $$\   $$\    $$ |$$$\ $$ |$$$$$$\ $$$$$$$\",'$' ;59
+str_logo_won4 db   "\$$$$  $$  __$$\$$ |  $$ |   $$ $$ $$\$$ $$  __$$\$$  __$$\",'$' ;59
+str_logo_won5 db    "\$$  /$$ /  $$ $$ |  $$ |   $$$$  _$$$$ $$ /  $$ $$ |  $$ |",'$' ;59
+str_logo_won6 db     "$$ | $$ |  $$ $$ |  $$ |   $$$  / \$$$ $$ |  $$ $$ |  $$ |",'$' ;58            
+str_logo_won7 db     "$$ | \$$$$$$  \$$$$$$  |   $$  /   \$$ \$$$$$$  $$ |  $$ |",'$' ;58
+str_logo_won8 db     "\__|  \______/ \______/    \__/     \__|\______/\__|  \__|",'$' ;58
+
+str_logo_lose db "Y88b   d88P                   888",'$' ;33
+str_logo_lose2 db "Y88b d88P                    888",'$' ;32
+str_logo_lose3 db  "Y88o88P                     888",'$' ;31
+str_logo_lose4 db   "Y888P  .d88b.  888  888    888       .d88b.  .d8888b   .d88b.",'$' ;61
+str_logo_lose5 db    "888  d88  88b 888  888    888      d88  88b 88K      d8P  Y8b",'$' ;61
+str_logo_lose6 db    "888  888  888 888  888    888      888  888  Y8888b. 88888888",'$' ;61          
+str_logo_lose7 db    "888  Y88..88P Y88b 888    888      Y88..88P      X88 Y8b.",'$' ;57
+str_logo_lose8 db    "888    Y88P     Y88888    88888888   Y88P    88888P    Y8888",'$' ;64
+
+str_level_up1 db "______                  ______    _____  __",'$'  ;43             
+str_level_up2 db "___  / ________   _________  /    __  / / /_______",'$'  ;50      
+str_level_up3 db "__  /  _  _ \_ | / /  _ \_  /     _  / / /___  __ \",'$';51     
+str_level_up4 db "_  /___/  __/_ |/ //  __/  /      / /_/ / __  /_/ /",'$' ;51    
+str_level_up5 db "/_____/\___/_____/ \___//_/       \____/  _  .___/",'$'  ;50     
+str_level_up6 db                                           "/_/",'$'  ;3       
+
+str_pause1 db "_ _      _ _  _   _   ___    __",'$' ;31 
+str_pause2 db "( '_`\  /'_` )( ) ( )/',__) /'__`\",'$'  ;34
+str_pause3 db "| (_) )( (_| || (_) |\__, \(  ___/",'$'  ;34
+str_pause4 db "| ,__/'`\__,_)`\___/'(____/`\____)",'$'   ;34
+str_pause5 db "| |",'$'  ;3                               
+str_pause6 db "(_)",'$'  ;3 
+
+str_levl_2_1 db ".____                      .__        ________",'$'  ;46    
+str_levl_2_2 db "|    |    _______  __ ____ |  |       \_____  \",'$' ;47
+str_levl_2_3 db "|    |  _/ __ \  \/ // __ \|  |        /  ____/",'$'  ;47
+str_levl_2_4 db "|    |__\  ___/\   /\  ___/|  |__     /       \",'$'  ;47
+str_levl_2_5 db "|_______ \___  >\_/  \___  >____/     \_______ \",'$'  ;48
+        str_levl_2_6 db "\/   \/          \/                   \/",'$'  ;40
+		
+str_levl_3_1 db ".____                      .__        ________",'$'  ;46    
+str_levl_3_2 db "|    |    _______  __ ____ |  |       \_____  \",'$' ;47
+str_levl_3_3 db "|    |  _/ __ \  \/ // __ \|  |         _(__  <",'$'  ;47
+str_levl_3_4 db "|    |__\  ___/\   /\  ___/|  |__      /       \",'$'  ;48
+str_levl_3_5 db "|_______ \___  >\_/  \___  >____/     /______  /",'$'  ;48
+        str_levl_3_6 db "\/   \/          \/                  \/",'$'  ;39		
+
+resume_opt db "Press 1:  Resume",'$'   ;16
+strt_new_game db "Press 2:  New Game",'$'    ;18
+
+robot_total_score db "Total score",'$'
+
+control_opt db "Press 2:  Controls options",'$' ;25
+sound_opt db "Press 3:  Sound options",'$'  ;22
+select_robot db "Press 4:  Select robot",'$'  ;21
+select_jet db "Press 5:  Select Jet",'$'  ;19
+control_opt2 db "Press 1: Keyboard",'$'  ;17
+control_opt3 db "Press 2: Mouse",'$'  ;14
+sound_opt2 db "Press 1: On",'$' ;11
+sound_opt3 db "Press 2: Off",'$' ;12 
+opt1 db "Press 1:  Select mode",'$'
+opt2 db "Press 2:  help",'$'
+opt_credits db "Press 3:  Credits"
+opt3 db "Press esc:  exit",'$'
+opt4 db "Press 1:  Easy",'$'
+opt5 db "Press 2:  Medium",'$'
+opt6 db "Press 3:  Hard",'$'
+opt7 db "Press 1:  Start game",'$'
+opt8 db "Press esc :  exit",'$'
+opt9 db "Press backspace for back",'$'  ;24
+helping1 db "In this game, you have to control the robot from keyboard left and right",'$'  ;72
+helping2 db "keys. First there will be only one cannon or jet at the top but, after",'$' ;70
+helping3 db "some seconds second cannon or jet will arrive. After some minutes there",'$';71
+helping4 db "speed will also increase. Statistic bar is on the right of screen showing",'$';73
+helping5 db "robot, two cannon health and total scores.",'$' ;42
+screen_escape db "Press esc to exit",'$'  ;17
+coal_prjct db "COAL Project",'$'
+sprvisor db "Supervisor:",'$'
+sprvisor_name db "Sir Hassan Raza (Coal Lab instructor)",'$'
+made_by db "Made by:",'$'  ;8
+myname db "ABU HURAIRA KHAN (i15-0455)",'$'  ;27
+sarmad db "M.SARMAD AJMAL (i15-0720)",'$'  ;25
+loaading db "loading...",'$'  ;10
+mouse_enable db "Mouse is selected successfully",'$'  ;30
+keyboard_enable db "Keyboard is selected successfully",'$'  ;33
+
+opt_robo1 db "Press 1:",'$' ;8
+opt_robo2 db "Press 2:",'$' ;8
+level2_done db 0
+one_var db 0
+;??????????????????menu??????????????
+
+;<<<<<<<<<<<file_handling>>>>>>>>>>>>>
+input_name db 30 dup("$")
+ent_name db "Enter your name",'$'
+resumee_file db "resume.txt",0
+name_file db "name.txt",0
+resume_save_str db 200 dup("$")
+extra_str_for_saving db 200 dup("$")
+extra_str_for_saving_nme db 30 dup("$")
+str_to_read_vars db 200 dup("$") 
+temp1 dw ?
+entered_num dw ?
+sample_v db ?
+
+logg db "log.txt",0
+log_line db 50 dup("$")
+;<<<<<<<<<<<file_handling>>>>>>>>>>>>>
+;???????????soung_varables??????????????
+sound_var dw ?
+sound_var2 dw ?
+sound_chk1 db ?
+sound_var3 db ?
+;???????????soung_varables??????????????
+
+.code
+
+draw_jet1 macro j1  ;^^^^^^^^^^^^^^^ JET1 ^^^^^^^^^^^^^^^^^
+mov bp,0
+mov dh,j1.y   ;col         layer1
+mov dl,j1.x    ;row
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print jet_a
+mov al,1
+mov cx,9
+mov bp,offset j1.jet_a
+mov bh,0h  ;wese
+mov bl,j1.colur  ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer2
+inc dl
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print jet_b
+mov al,1
+mov cx,7
+mov bp,offset j1.jet_b
+mov bh,0h  ;wese
+mov bl,j1.colur  ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer3
+inc dl    ;row
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print jet_c
+mov al,1
+mov cx,5
+mov bp,offset j1.jet_c
+mov bh,0h  ;wese
+mov bl,j1.colur  ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer3
+inc dl    ;row
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print jet_d
+mov al,1
+mov cx,3
+mov bp,offset j1.jet_d
+mov bh,0h  ;wese
+mov bl,j1.colur  ;colour
+int 10h
+endm   ;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+draw_second_jet macro j  ;^^^^^^^^^^^^^^^ JET1 ^^^^^^^^^^^^^^^^^
+mov bp,0
+mov dh,j.y   ;col         layer1
+mov dl,j.x    ;row
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print jet_a
+mov al,1
+mov cx,9
+mov bp,offset j.sec_jet_a
+mov bh,0h  ;wese
+mov bl,j.colur  ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer2
+inc dl
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print jet_b
+mov al,1
+mov cx,7
+mov bp,offset j.sec_jet_b
+mov bh,0h  ;wese
+mov bl,j.colur  ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer3
+inc dl    ;row
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print jet_c
+mov al,1
+mov cx,5
+mov bp,offset j.sec_jet_c
+mov bh,0h  ;wese
+mov bl,j.colur  ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer3
+inc dl    ;row
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print jet_d
+mov al,1
+mov cx,3
+mov bp,offset j.sec_jet_d
+mov bh,0h  ;wese
+mov bl,j.colur  ;colour
+int 10h
+endm   ;^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+draw_robot macro r1 ; $$$$$$$$$$$$$$ ROBOT $$$$$$$$$$$$$$$$$$$$$$$$
+mov bp,0
+mov dh,r1.y   ;col         layer1
+mov dl,r1.x    ;row
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_a
+mov al,1
+mov cx,7
+mov bp,offset r1.robot_a
+mov bh,0h  ;wese
+mov bl,r1.colur  ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer2
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_b
+mov al,1
+mov cx,8
+mov bp,offset r1.robot_b
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer3
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_c
+mov al,1
+mov cx,8
+mov bp,offset r1.robot_c
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer4
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_d
+mov al,1
+mov cx,9
+mov bp,offset r1.robot_d
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer5
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_e
+mov al,1
+mov cx,9
+mov bp,offset r1.robot_e
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer7
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_g
+mov al,1
+mov cx,9
+mov bp,offset r1.robot_g
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer8
+add dl,4    ;row
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_h
+mov al,1
+mov cx,3
+mov bp,offset r1.robot_h
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer10
+dec dl
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_j
+mov al,1
+mov cx,5
+mov bp,offset r1.robot_j
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+endm ; $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+draw_second_robot macro r1 ; $$$$$$$$$$$$$$ Second ROBOT $$$$$$$$$$$$$$$$$$$$$$$$
+mov bp,0
+mov dh,r1.y   ;col         layer1
+mov dl,r1.x    ;row
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_a
+mov al,1
+mov cx,6
+mov bp,offset r1.sec_robot_a
+mov bh,0h  ;wese
+mov bl,r1.colur  ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer2
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_b
+mov al,1
+mov cx,7
+mov bp,offset r1.sec_robot_b
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer3
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_c
+mov al,1
+mov cx,7
+mov bp,offset r1.sec_robot_c
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer4
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_d
+mov al,1
+mov cx,8
+mov bp,offset r1.sec_robot_d
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer5
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_e
+mov al,1
+mov cx,8
+mov bp,offset r1.sec_robot_e
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer7
+inc dl
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_g
+mov al,1
+mov cx,7
+mov bp,offset r1.sec_robot_g
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer8
+add dl,2    ;row
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_h
+mov al,1
+mov cx,3
+mov bp,offset r1.sec_robot_h
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+
+mov bp,0
+inc dh   ;col         layer10
+dec dl
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,13h  ;to print robot_j
+mov al,1
+mov cx,5
+mov bp,offset r1.sec_robot_j
+mov bh,0h  ;wese
+mov bl,r1.colur   ;colour
+int 10h
+endm ; $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+jet_firing macro xx,yy,colio ;&&&&&&&&&&& all JET FIRING &&&&&&&&&
+mov dl,xx
+mov dh,yy
+mov cx,1
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,09h  ;to print characters
+mov al,'V'
+mov bh,0h  ;wese
+mov bl,colio ;colour
+int 10h
+endm  ;&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+coin_coming macro xx,yy,colio2 ;&&&&&&&&&&& coin for robot &&&&&&&&&
+mov dl,xx
+mov dh,yy
+mov cx,1
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,09h  ;to print characters
+mov al,3    ;heart ,the character of coin
+mov bh,0h  ;wese
+mov bl,colio2  ;colour
+int 10h
+endm  ;&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+robot_firing macro xx,yy,colio2 ;&&&&&&&&&&& ROBOT FIRING &&&&&&&&&
+mov dl,xx
+mov dh,yy
+mov cx,1
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,09h  ;to print characters
+mov al,'#'
+mov bh,0h  ;wese
+mov bl,colio2  ;colour
+int 10h
+endm  ;&&&&&&&&&&&&&&&&&&&&&&&&&&&
+
+draw_score_board macro lfr1,lfj1,lfj2 ;%%%%%%%%%%%%%%%% SCORE_ BOARD %%%%%%%%%%%%%%%%%%%
+mov ah,06h  ;score board
+mov al,0  ;wese
+mov bh,9 ;colour
+mov cl,62  ; cl(row)(40max) = 0
+mov ch,1  ; ch(column)(25max) = 0
+mov dl,78  ; dl(row)(40max)
+mov dh,28  ; dh(column)(25max)
+int 10h
+
+mov bp,0
+mov ah,02h
+mov dh,2
+mov dl,68
+int 10h
+
+mov ah,13h  ;printing "Stats"
+mov al,1
+mov cx,5
+mov bp,offset stats
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+mov ah,02h	;cursor
+mov dh,3	;col 
+mov dl,66
+int 10h
+
+mov ah,09h	;printing ----------------
+mov bh,0
+mov bl,164
+mov cx,10
+mov al,'-'
+int 10h
+;;;;;;;;;;;;;;;;;;;;;
+mov bp,0
+mov ah,02h	;cursor
+mov dh,4
+mov dl,64
+int 10h
+mov ah,13h  ;printing "score"
+mov al,1
+mov cx,12
+mov bp,offset scorestr
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov bp,0
+mov ah,02h
+mov dh,6
+mov dl,64
+int 10h
+
+mov ah,13h  ;printing "robots life"
+mov al,1
+mov cx,12
+mov bp,offset robot_life
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov ah,02h
+mov dh,7
+mov dl,65
+int 10h
+
+mov ah,09h	;printing health of robot
+mov bh,0
+mov bl,188	;color
+mov ch,00h
+mov cl,lfr1	;robots health  10
+mov al,3	;character for health
+int 10h
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov ah,02h
+mov dh,9
+mov dl,63
+int 10h
+
+mov ah,09h	;printing ""
+mov bh,0
+mov bl,188	;color
+mov ch,00h
+mov cl,15	;robots health  15
+;mov cl,lfr11	;robots health  15
+mov al,178	;character for health
+int 10h
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov bp,0
+mov ah,02h
+mov dh,11
+mov dl,64
+int 10h
+mov ah,13h  ;printing "jet 1 health"
+mov al,1
+mov cx,12
+mov bp,offset jet1_life
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov ah,02h
+mov dh,12
+mov dl,65
+int 10h
+
+mov ah,09h	;printing health of jet 1
+mov bh,0
+mov bl,196	;color
+mov ch,00h
+mov cl,lfj1	;jet 1 health  10
+mov al,6	;character for health
+int 10h
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+mov bp,0
+mov ah,02h	;cursor
+mov dh,14
+mov dl,64
+int 10h
+mov ah,13h  ;printing "jet 2 health"
+mov al,1
+mov cx,12
+mov bp,offset jet2_life
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov ah,02h	;cursor
+mov dh,15
+mov dl,65
+int 10h
+
+mov ah,09h	;printing health of jet 1
+mov bh,0
+mov bl,196	;character for health
+mov ch,00h
+mov cl,lfj2	;jet 1 health  10
+mov al,6
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,24
+mov dl,62
+int 10h
+mov ah,13h  ;printing "press p to pause the game"
+mov al,1
+mov cx,16
+mov bp,offset pause_opt
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,26
+mov dl,62
+int 10h
+mov ah,13h  ;printing "press c to continue the game"
+mov al,1
+mov cx,16
+mov bp,offset contin_opt
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,28
+mov dl,62
+int 10h
+mov ah,13h  ;printing "press esc to exit the game"
+mov al,1
+mov cx,17
+mov bp,offset screen_escape
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+endm  ;%%%%%%%%%%%%%%%% SCORE_ BOARD %%%%%%%%%%%%%%%%%%%
+
+draw_j3_scoreboard macro lfj3  ;<<<<<<<<<<<<<draw_j3_scoreboard <<<<<<<<<<<<
+mov bp,0
+mov ah,02h
+mov dh,17
+mov dl,64
+int 10h
+mov ah,13h  ;printing "jet 3 health"
+mov al,1
+mov cx,12
+mov bp,offset jet3_life
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov ah,02h
+mov dh,18
+mov dl,65
+int 10h
+
+mov ah,09h	;printing health of jet 3
+mov bh,0
+mov bl,196	;color
+mov ch,00h
+mov cl,lfj3	;jet 3 health  10
+mov al,6	;character for health
+int 10h
+endm   ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+draw_loading macro val_cx ;???????????????Draw loading??????????
+mov ah,02h
+mov dh,25
+mov dl,5
+int 10h
+
+mov ah,09h	;printing ""
+mov bh,0
+mov bl,135	;color
+mov ch,00h
+mov cl,val_cx	
+mov al,178	
+int 10h
+endm ;???????????????Draw loading??????????
+
+draw_enter_name macro ;???????????????draw_enter_name??????????
+call draw_menu
+call draw_logo_front
+
+mov ah,06h  ;big box colour change  ;upper
+mov al,0  ;wese
+mov bh,0 ;colour 
+mov cl,23
+mov ch,16  
+mov dl,60  
+mov dh,18 
+int 10h
+
+mov bp,0
+mov ah,02h
+mov dh,14
+mov dl,33
+int 10h
+mov ah,13h  ;printing "enter name"
+mov al,1
+mov cx,15
+mov bp,offset ent_name
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov ah,02h
+add dh,3
+sub dl,9
+int 10h
+mov dx,offset input_name
+mov ah,0Ah   ; or 3Fh
+int 21h
+endm ;???????????????Draw loading??????????
+
+main proc      ; main fuction definition ;************************* MAIN ******************
+mov ax,@data   ;using data segment
+mov ds,ax
+mov es,ax
+
+mov ah,0h  ;screen select  80 * 28 (640 * 224)
+mov al,12h
+int 10h
+
+;???????????????????Front screen???????????
+frt_loop:
+call draw_front_screen
+mov ah,01h
+int 16h
+mov bh,ah
+mov ah,0Ch  ;buffer clear
+int 21h
+cmp bh,1Ch
+je enter_button
+cmp bh,0E0h
+je enter_button
+
+jmp frt_loop
+enter_button:
+call clear_screen
+;???????????????????Front screen???????????
+
+vava:
+;mov coming_time_for_jet2,100
+;mov timer_for_speed,255
+mov bh,120                    ;time for coin to came
+mov time_for_coin_to_came,bh   
+mov r1.x,25  ;to change
+mov r1.y,19
+mov r1.colur,134
+
+mov j1.x,9   ;to change
+mov j1.y,1
+mov j1.colur,131
+
+mov j2.x,25   ;to change
+mov j2.y,1
+mov j2.colur,139
+
+mov j3.x,45   ;to change
+mov j3.y,1
+mov j3.colur,130
+
+mov var1,1  ;starting row value
+mov check,0  ; either border come or not
+mov var2,0   
+mov var2j2,0
+mov var2r1,0
+mov var3,0
+mov var4,0
+mov var4j2,0
+mov var4r1,0
+mov var5,0
+mov var5j2,0
+mov var5r1,0
+mov checkj2,0
+mov varii1,25   ;starting row value of jet2
+mov var_for_time,0
+mov checkyes,0
+mov checkyes2,0
+mov checkyes3,0
+mov chackoo,0
+mov chk_robo_win,0
+mov chk_last1,0
+mov chk_last2,0
+mov chk_last3,0
+mov chk_last3j3,0
+mov chk_last4,0
+mov chk_last2j3,0
+mov life_outj1,0
+mov life_outj2,0
+mov life_outj3,0
+mov life_outr1,0
+mov chk_start1,1
+mov chk_start2,0
+mov chk_start3,0
+mov check_for_sound1,0
+mov check_for_mouse,0
+mov only_chng_chk,0
+mov var_for_load,0
+mov ckh_spce,0
+mov var_mouse_shoot,1
+mov lifer1,10
+mov lifej1,10
+mov lifej2,10
+mov lifej3,10
+mov digits,0
+mov al_value,0
+mov left_button,0   ;for mouse
+mov checkj3,0  ;;for _level2
+mov var1j3,45  ;for _level2  starting row value of jet3
+mov var2j3,0   ;for _level2
+mov var5j3,0    ;for _level2
+mov var4j3,0    ;for _level2
+mov starting_pacej1,30
+mov ending_pacej1,55
+mov starting_pacej2,30
+mov ending_pacej2,55
+mov starting_pacej3,30
+mov ending_pacej3,55
+mov bh,ending_pacej1
+mov pace_varij1,bh ;max_value
+mov bh,ending_pacej2
+mov pace_varij2,bh      ;max_value
+mov bh,ending_pacej3
+mov pace_varij3,bh    ;max_value
+mov chk_second_robo,0  ;for second robot
+mov chk_sec_jet,0  ;for second jet
+mov simple_var_for_name,0
+mov temp1,0
+mov entered_num,0
+mov sample_v,0
+
+;////////////////new_variables//////////
+mov var_coin_y,1   
+;//to save
+mov var_coin_x,0
+mov var4coin,0
+mov var5coin,0
+mov var2coin,0
+mov var_co_x,0
+;//to save
+mov colour_of_coin,188 ;red   ;136 black colour
+;////////////////new_variables//////////
+
+cmp chk_for_restart,1 ;if game looses then goto titu
+je no_resumingee
+cmp chk_for_level2,1
+je starti
+cmp level2_done,1
+je no_resuming
+jmp no_resum
+no_resuming:
+mov chk_for_level3,1
+jmp starti
+
+no_resumingee:
+mov totall_scori,0
+jmp titu
+
+no_resum:
+;<<<<<<front page of resume>>>>>>>>>>>>>
+ call draw_menu
+ call draw_logo_front
+ call draw_resume_screen
+ mov ah,00h
+ int 16h
+ cmp ah,02   ;scancode of 1 ;resume
+ je resumee
+ cmp ah,4Fh   ;scancode of 1
+ je resumee
+ cmp ah,03   ;scan code of 2 ;new_game
+ je labli
+ cmp ah,50h   ;scan code of 2
+ je labli
+ cmp ah,01    ;escape
+ je geeeteout
+ jmp no_resum
+ 
+ resumee:
+ call resuming
+ mov one_var,1  ;not to do loading in case of resume
+ mov chk_for_restart,0  ;not to do loading in case of resume
+ jmp starti
+ 
+;<<<<<<front page of resume>>>>>>>>>>>>>
+
+labli:    ;new_game
+cmp chk_for_level2,0   ;for level2
+jne titu
+
+call draw_menu
+call draw_logo_front
+call display_options
+mov ah,00h
+int 16h
+cmp ah,01    ;escape
+je geeeteout
+cmp ah,02   ;scancode of 1
+je medims
+cmp ah,4Fh   ;scancode of 1
+je medims
+cmp ah,03   ;scan code of 2
+je help
+cmp ah,50h   ;scan code of 2
+je help
+cmp ah,04h    ;3
+je crdits
+cmp ah,51h    ;3
+je crdits
+
+jmp labli
+crdits:
+call draw_menu
+call draw_logo_front
+call draw_credits
+mov ah,00h
+int 16h
+mov bh,ah
+cmp bh,0Eh   ;backspace
+je labli
+jmp crdits
+help:
+call draw_menu
+call draw_help
+mov ah,00h
+int 16h
+mov bh,ah
+cmp bh,0Eh   ;backspace
+je labli
+jmp help
+medims:
+call draw_menu
+call draw_logo_front
+call display_mediums
+mov ah,00h
+int 16h
+cmp ah,02h    ;1
+je alpha
+cmp ah,4Fh    ;1
+je alpha
+cmp ah,03h    ;2
+je beta
+cmp ah,50h    ;2
+je beta
+cmp ah,04h    ;3
+je cata
+cmp ah,51h    ;3
+je cata
+cmp ah,0Eh   ;backspace
+je labli
+jmp medims
+alpha:
+mov chk_start1,1
+mov chk_start2,0
+mov chk_start3,0
+jmp titubad
+beta:
+mov chk_start1,0
+mov chk_start2,1
+mov chk_start3,0
+jmp titubad
+cata:
+mov chk_start1,0
+mov chk_start2,0
+mov chk_start3,1
+
+titubad:
+cmp chk_for_level2,1  ;if level is up before then do not ask again for name
+je titu
+draw_enter_name
+
+titu:
+call draw_menu
+call draw_logo_front
+call start_page
+mov ah,00h
+int 16h
+cmp ah,02   ;scancode of 1
+je starti
+cmp ah,4Fh   ;scancode of 1
+je starti
+cmp ah,03  ; scancode of 2
+je contrl_optns
+cmp ah,50h  ; scancode of 2
+je contrl_optns
+cmp ah,04   ;scancode of 3
+je sound_optns
+cmp ah,51   ;scancode of 3
+je sound_optns
+cmp ah,4Bh   ;scancode of 4
+je robo_select
+cmp ah,05h   ;scancode of 4
+je robo_select
+cmp ah,06h   ;scancode of 5
+je jet_select
+cmp ah,4Ch   ;scancode of keypad 5
+je jet_select
+cmp ah,01   ;escape
+je geeeteout
+cmp ah,0Eh   ;backspace
+je medims
+jmp titu
+
+jet_select:
+call draw_menu
+call draw_logo_front
+call draw_select_jet
+mov ah,00h
+int 16h
+cmp ah,02   ;scancode of 1
+je jete1
+cmp ah,4Fh   ;scancode of 1
+je jete1
+cmp ah,03  ; scancode of 2
+je jete2
+cmp ah,50  ; scancode of 2
+je jete2
+cmp ah,0Eh   ;backspace
+je titu
+jmp jet_select
+jete1:
+mov chk_sec_jet,0
+jmp titu
+jete2:
+mov chk_sec_jet,1
+jmp titu
+
+robo_select:
+call draw_menu
+call draw_logo_front
+call draw_select_robot
+mov ah,00h
+int 16h
+cmp ah,02   ;scancode of 1
+je robo1
+cmp ah,4Fh   ;scancode of 1
+je robo1
+cmp ah,03  ; scancode of 2
+je robo2
+cmp ah,50  ; scancode of 2
+je robo2
+cmp ah,0Eh   ;backspace
+je titu
+jmp titu
+robo1:
+mov chk_second_robo,0
+jmp titu
+robo2:
+mov chk_second_robo,1
+jmp titu
+
+contrl_optns:
+call draw_menu
+call draw_logo_front
+call draw_controls_section
+mov ah,00h
+int 16h
+cmp ah,02   ;scancode of 1
+je from_keyboard
+cmp ah,4Fh   ;scancode of 1
+je from_keyboard
+cmp ah,03  ; scancode of 2
+je from_mouse
+cmp ah,50  ; scancode of 2
+je from_mouse
+cmp ah,0Eh   ;backspace
+je titu
+jmp contrl_optns
+
+from_keyboard:
+mov check_for_mouse,0
+call draw_keyboard_enable
+mov cx,0Fh                            ;timer
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+call clear_screen
+jmp titu
+from_mouse:
+mov check_for_mouse,1
+call draw_mouse_enable
+mov cx,0Fh                            ;timer
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+call clear_screen
+jmp titu
+
+sound_optns:
+call draw_menu
+call draw_logo_front
+call draw_sound_section
+mov ah,00h
+int 16h
+cmp ah,02   ;scancode of 1
+je onn
+cmp ah,4Fh   ;scancode of 1
+je onn
+cmp ah,03  ; scancode of 2
+je offf
+cmp ah,50  ; scancode of 2
+je offf
+cmp ah,0Eh   ;backspace
+je titu
+jmp sound_optns   
+
+onn:
+mov check_for_sound1,0
+jmp titu        ;first it was sound_optns
+offf:
+mov check_for_sound1,1
+jmp titu
+
+starti:
+;comment @
+cmp chk_for_restart,1
+je peaaako
+cmp one_var,0
+je peaaako
+jmp next_leve
+call clear_screen
+
+peaaako: ;loading
+cmp var_for_load,69
+jae next_leve
+call draw_menu
+call draw_logo_front
+call start_page
+draw_loading var_for_load
+call draw_new_loading_logo
+call timer1
+call clear_screen
+inc var_for_load
+jmp peaaako
+
+next_leve:
+;@
+mov ax,01h      ;\\\\\\\\\\\\\\\\\\mouse thing\\\\\\\\\\\to show mouse
+int 33h
+label1:
+inc pace_varij1  ;for jets pace
+inc pace_varij2  ;for jets pace
+inc pace_varij3  ;for jets pace
+mov bh,ending_pacej1
+cmp pace_varij1,bh
+je no_issuej1
+mov bh,ending_pacej2
+cmp pace_varij2,bh
+je no_issuej2
+mov bh,ending_pacej3
+cmp pace_varij3,bh
+je no_issuej3
+jmp no_issue
+no_issuej3:
+mov pace_varij3,0
+jmp no_issue
+no_issuej2:
+mov pace_varij2,0
+jmp no_issue
+no_issuej1:
+mov pace_varij1,0
+no_issue:
+
+;/////////////// jet1 move /////
+cmp check,0
+je increasing
+dec var1
+ 
+mov bh,starting_pacej1                ;pace code
+cmp pace_varij1,bh
+ja go_inside
+jmp downwords
+go_inside:
+mov bh,ending_pacej1
+cmp pace_varij1,bh
+jb now_gave_value
+jmp downwords
+now_gave_value:
+sub var1,2
+downwords:          ;pace code
+;dec var1    ;( decomment these to increase speed of jet1 )
+jmp next
+increasing:
+inc var1
+
+mov bh,starting_pacej1                ;pace code
+cmp pace_varij1,bh
+ja go_inside1
+jmp downwords1
+go_inside1:
+mov bh,ending_pacej1
+cmp pace_varij1,bh
+jb now_gave_value1
+jmp downwords1
+now_gave_value1:
+add var1,2
+downwords1:                 ;pace code
+
+;inc var1    ;( decomment these to increase speed of jet1 )
+next:
+cmp var1,51
+jae checke
+jmp next1
+checke:
+mov check,1
+next1:
+cmp var1,3
+jbe checke1
+jmp next2
+checke1:
+mov check,0
+next2:
+mov bh,var1
+mov j1.x,bh
+;/////// jet1 move /////
+
+cmp chk_for_level2,0       ;for level2
+je not_second
+
+;////////jet3 move/////////
+cmp checkj3,0
+je increasingj3
+dec var1j3
+ 
+mov bh,starting_pacej3                ;pace code
+cmp pace_varij3,bh
+ja go_insidej3
+jmp downwordsj3
+go_insidej3:
+mov bh,ending_pacej3
+cmp pace_varij3,bh
+jb now_gave_valuej3
+jmp downwordsj3
+now_gave_valuej3:
+sub var1j3,2
+downwordsj3:          ;pace code
+;dec var1    ;( decomment these to increase speed of jet1 )
+jmp nextj3
+increasingj3:
+inc var1j3
+
+mov bh,starting_pacej3                ;pace code
+cmp pace_varij3,bh
+ja go_inside1j3
+jmp downwords1j3
+go_inside1j3:
+mov bh,ending_pacej3
+cmp pace_varij3,bh
+jb now_gave_value1j3
+jmp downwords1j3
+now_gave_value1j3:
+add var1j3,2
+downwords1j3:                 ;pace code
+
+;inc var1    ;( decomment these to increase speed of jet1 )
+nextj3:
+cmp var1j3,51
+jae checkej3
+jmp next1j3
+checkej3:
+mov checkj3,1
+next1j3:
+cmp var1j3,3
+jbe checke1j3
+jmp next2j3
+checke1j3:
+mov checkj3,0
+next2j3:
+mov bh,var1j3
+mov j3.x,bh
+
+;////////jet3 move/////////
+not_second:
+
+
+;<<<<<<<<<< JET1 FIRE <<<<<<<<<<<<<<<<<<
+cmp var2,0
+je away
+cmp var2,22  ;no of horizontal lines
+jae make_var2_0
+
+inc var5
+;inc var5  ; ( decomment these to increase speed of fire of jet1 ) 
+mov bh,starting_pacej1                ;pace code
+cmp pace_varij1,bh
+ja go_inside1fire
+jmp downwords1fire
+go_inside1fire:
+mov bh,ending_pacej1
+cmp pace_varij1,bh
+jb now_gave_value1fire
+jmp downwords1fire
+now_gave_value1fire:
+add var5,1
+downwords1fire:                 ;pace code
+
+jmp agejao
+
+make_var2_0:
+mov var2,0
+mov chk_last3,0
+
+away:
+mov bh,j1.x
+add bh,4
+mov var4,bh
+mov bh,j1.y
+add bh,4
+mov var5,bh
+
+agejao:
+inc var2
+;inc var2   ;( decomment these to increase speed of fire of jet1 )
+mov bh,starting_pacej1                ;pace code
+cmp pace_varij1,bh
+ja go_inside1fire2
+jmp downwords1fire2
+go_inside1fire2:
+mov bh,ending_pacej1
+cmp pace_varij1,bh
+jb now_gave_value1fire2
+jmp downwords1fire2
+now_gave_value1fire2:
+add var2,1
+downwords1fire2:                 ;pace code
+;<<<<<<<<<< JET1 FIRE <<<<<<<<<<<<<<<<<<
+cmp chk_for_level2,0       ;for level2
+je not_secondj3
+;<<<<<<<<<< JET3 FIRE <<<<<<<<<<<<<<<<<<
+cmp var2j3,0
+je awayj3
+
+cmp var2j3,22  ;no of horizontal lines
+jae make_var2_0j3
+
+inc var5j3
+;inc var5j3     ;( decomment these to increase speed of fire of jet2 )
+
+mov bh,starting_pacej3                ;pace code
+cmp pace_varij3,bh
+ja go_inside1j3fire
+jmp downwords1j3fire
+go_inside1j3fire:
+mov bh,ending_pacej3
+cmp pace_varij3,bh
+jb now_gave_value1j3fire
+jmp downwords1j3fire
+now_gave_value1j3fire:
+add var5j3,1
+downwords1j3fire:                 ;pace code
+
+jmp agejaoj3
+
+make_var2_0j3:
+mov chk_last3j3,0
+mov var2j3,0
+awayj3:
+
+mov bh,j3.x
+add bh,4
+mov var4j3,bh
+mov bh,j3.y
+add bh,4
+mov var5j3,bh
+
+agejaoj3:
+;inc var2j3     ;( decomment these to increase speed of jet2 )
+inc var2j3
+
+mov bh,starting_pacej3                ;pace code
+cmp pace_varij3,bh
+ja go_inside1j3fire2
+jmp downwords1j3fire2
+go_inside1j3fire2:
+mov bh,ending_pacej3
+cmp pace_varij3,bh
+jb now_gave_value1j3fire2
+jmp downwords1j3fire2
+now_gave_value1j3fire2:
+add var2j3,1
+downwords1j3fire2:                 ;pace code
+
+;<<<<<<<<<< JET3 FIRE <<<<<<<<<<<<<<<<<<
+not_secondj3:
+
+;/////// robot move /////
+
+;????????????? mouse ???????????
+cmp check_for_mouse,0
+je not_the_mouse
+
+mov bx,00h   ;making all the registers zero
+mov cx,00h
+mov dx,00h
+
+mov ax,01
+int 33h
+mov ax,02h      ;\\\\\\\\\\\\\\\\\\mouse thing\\\\\\\\\\\to hide mouse
+int 33h
+mov ax,03h      ;\\\\\\\\\\\\\\\\\\mouse thing\\\\\\\\\\\to get mouse cordinates
+int 33h
+mov left_button,bl     ;left button pressed if bl = 1
+
+mov dx,0            ;to take mouse cursor to the main axis of robot (19)
+mov ax,04h
+int 33h
+no_issue2:
+mov ax,cx     ;bcz of 80 horizontal lines 
+mov bh,8     ;640 / 8 = 80;
+div bh
+
+cmp var_mouse_shoot,0
+je so_go_next
+mov bh,1        ;for left_button
+cmp left_button,bh
+jne so_go_next
+cmp ckh_spce,1
+je so_go_next
+mov ckh_spce,1
+mov var2r1,0
+cmp check_for_sound1,1
+je soundoff22
+call sound_proce   ;sound when robot shoot
+soundoff22:
+so_go_next:
+mov al_value,al  ;al is having the row value
+cmp cx,424   ;restricting pointer to enterance into scoreboard 
+ja now_instruct
+cmp cx,8
+jbe now_instruct2
+jmp no_rule
+now_instruct:
+mov cx,424
+mov ax,04h
+int 33h
+jmp no_rule
+now_instruct2:
+mov cx,8
+mov ax,04h
+int 33h
+no_rule:
+mov al,al_value
+
+cmp al,1
+jb mousing_label
+cmp al,53
+ja mousing_label
+mov bl,r1.x          ;removing vibration of robot
+inc bl
+cmp al,bl
+ja now_inc
+mov bl,r1.x          ;removing vibration of robot
+dec bl
+cmp al,bl
+jb now_dec
+jmp mousing_label
+now_inc:
+inc r1.x
+inc r1.x
+jmp mousing_label
+now_dec:
+dec r1.x
+dec r1.x
+not_the_mouse:
+;mov check_for_mouse,0   ;if mouse is not working
+mousing_label:
+mov bx,00h   ;making all the registers zero
+mov cx,00h
+mov dx,00h
+mov ax,00h
+
+;????????????? mouse ???????????
+mov ah,01h  ;input for cpu not to wait
+int 16h
+jnz doit
+jmp go_next
+doit:
+mov bh,ah  ;bh has character entered
+mov ah,0ch  ;clear buffer
+int 21h
+
+cmp bh,19h   ;p
+je only_chng
+cmp bh,01   ;escape
+je tituee
+cmp ckh_spce,1
+je wapsiii
+cmp bh,39h
+je space_bar
+wapsiii:
+cmp check_for_mouse,0   ;not to use keyboard if check on
+jne go_aaliext
+cmp bh,4Bh
+je left
+cmp bh,4Dh
+je right
+jmp go_next
+tituee:
+mov one_var,1  ;for no loading now
+jmp titu
+
+only_chng:
+mov only_chng_chk,1
+jmp go_next
+
+space_bar:
+cmp check_for_sound1,1
+je soundoff
+call sound_proce   ;sound when robot shoot
+soundoff:
+mov ckh_spce,1
+mov var2r1,0
+jmp wapsiii
+left:
+cmp r1.x,1
+jbe go_aaliext
+
+dec r1.x
+dec r1.x
+dec r1.x
+;dec r1.x     ;( decomment these to increase speed of robot )
+;dec r1.x
+jmp go_aaliext
+right:
+;cmp r1.x,50   ;( decomment these to increase speed of robot )
+cmp r1.x,50
+jae go_aaliext
+inc r1.x
+inc r1.x
+inc r1.x
+;inc r1.x   ;( decomment these to increase speed of robot )
+;inc r1.x
+;jmp go_next
+;/////// robot move /////
+go_aaliext:
+cmp r1.x,30              ;for score (when robot passes from centre)
+jae now_karo
+jmp go_next
+now_karo:
+cmp r1.x,33
+jbe now_karo1
+jmp go_next
+now_karo1:
+inc totall_scori       ;for score (when robot passes from centre)
+go_next:
+;<<<<<<<<<< robot FIRE <<<<<<<<<<<<<<<<<<
+
+cmp ckh_spce,0
+je foohi
+cmp var2r1,0
+je awayr1
+
+cmp var2r1,19     ;no of horizontal lines
+jae make_var2_0r1
+
+dec var5r1
+dec var5r1
+;dec var5r1    ;;( decomment these to increase speed of fire of robot )
+jmp agejaor1
+
+make_var2_0r1:
+mov var_mouse_shoot,1
+mov ckh_spce,0
+mov var2r1,0
+mov var5r1,0
+mov var4r1,0
+mov chk_last2,0
+mov chk_last4,0
+mov chk_last2j3,0
+
+awayr1:
+mov bh,r1.x
+inc bh
+cmp chk_second_robo,0
+je dont_do
+dec bh
+dont_do:
+mov var4r1,bh
+mov bh,r1.y
+mov var5r1,bh
+
+agejaor1:
+inc var2r1
+;inc var2r1    ;;( decomment these to increase speed of fire of robot )
+inc var2r1
+foohi:
+;<<<<<<<<<< robot FIRE <<<<<<<<<<<<<<<<<<
+
+;///////////////////coin thing start/////
+cmp chk_for_level3,1
+jne no_coins
+inc var_co_x
+mov bh,time_for_coin_to_came
+cmp var_co_x,bh
+jae make_it_zero
+jmp agii
+make_it_zero:
+mov chk_for_coin,1
+mov var_co_x,0
+cmp r1.x,46
+jae give_6
+cmp r1.x,15
+jbe give_6
+cmp r1.x,15
+jae toio
+cmp r1.x,30
+jae gave44
+toio:
+cmp r1.x,30
+jbe gave44
+yuyu:
+mov var_coin_x,14
+mov var_coin_y,1
+jmp agii
+gave44:
+mov var_coin_x,44
+mov var_coin_y,1
+jmp agii
+give_6:
+mov var_coin_x,30
+mov var_coin_y,1
+agii:
+cmp chk_for_coin,1
+jne no_coins
+;<<<<<<<<<<< coins for robot >>>>>>>>>>>>>>
+cmp var2coin,0
+je awaycoin
+
+cmp var2coin,26  ;no of horizontal lines
+jae make_var2_0coin
+
+inc var5coin
+;inc var5coin     ;( decomment these to increase speed of fire of coin )
+jmp agejaocoin
+
+make_var2_0coin:
+mov var2coin,0
+mov chk_for_coin,0
+
+awaycoin:
+
+mov bh,var_coin_x
+mov var4coin,bh
+mov bh,var_coin_y
+mov var5coin,bh
+
+agejaocoin:
+;inc var2coin     ;( decomment these to increase speed of coins )
+inc var2coin
+
+;<<<<<<<<<<< coins for robot >>>>>>>>>>>>>>
+
+;//////////////Detecting robot by coin/////////////
+mov bh,r1.x
+mov bl,bh
+add bl,8    ;width of robot
+cmp var4coin,bh
+jae newlabel1coin
+jmp newlabel3coin
+newlabel1coin:
+cmp var4coin,bl
+jbe newlabel2coin
+jmp newlabel3coin
+newlabel2coin:
+mov bh,r1.y   ;top of robot
+cmp var5coin,bh
+jae newlabel4coin
+jmp newlabel3coin
+newlabel4coin:
+mov bh,10
+mov lifer1,bh     ; code for increase robot life
+add totall_scori,50  ;add score to 50 when robot get the coin
+cmp check_for_sound1,1
+je soundoff1coin
+call hit_sound_proce ;sound when coin hit the robot
+soundoff1coin:
+mov var2coin,26
+newlabel3coin:
+;//////////////Detecting robot by coin/////////////
+
+no_coins:
+;>>>>>>>>>>>> More Jets >>>>>>>>>>>>
+inc var3
+mov bh,coming_time_for_jet2    ;for new jet to come
+cmp var3,bh  
+jae age3
+jmp age4
+age3:
+mov bh,coming_time_for_jet2   ;for new jet to come
+mov var3,bh
+  
+; ????????????? For second jet ???????????
+cmp checkj2,0
+je increasingj2
+;dec varii1        ;( decomment these to increase speed of jet2 )
+dec varii1
+mov bh,starting_pacej2        ;pace code
+cmp pace_varij2,bh
+ja go_inside4
+jmp downwords4
+go_inside4:
+mov bh,ending_pacej2
+cmp pace_varij2,bh
+jb now_gave_value4
+jmp downwords4
+now_gave_value4:
+sub varii1,2
+downwords4:   ;pace code
+jmp nextj2
+increasingj2:
+;inc varii1       ;( decomment these to increase speed of jet2 )
+inc varii1
+mov bh,starting_pacej2        ;pace code
+cmp pace_varij2,bh
+ja go_inside3
+jmp downwords3
+go_inside3:
+mov bh,ending_pacej2
+cmp pace_varij2,bh
+jb now_gave_value3
+jmp downwords3
+now_gave_value3:
+add varii1,2
+downwords3:   ;pace code
+
+nextj2:
+cmp varii1,53
+jae checkej2
+jmp next1j2
+checkej2:
+mov checkj2,1
+next1j2:
+cmp varii1,3
+jbe checke1j2
+jmp next2j2
+checke1j2:
+mov checkj2,0
+next2j2:
+mov bh,varii1
+mov j2.x,bh
+mov j2.colur,143    ;changing jet2 colour
+; ????????????? For second jet ???????????
+
+;>>>>>>>>>>>> More Jets >>>>>>>>>>>>
+
+;<<<<<<<<<< JET2 FIRE <<<<<<<<<<<<<<<<<<
+cmp var2j2,0
+je awayj2
+
+cmp var2j2,22  ;no of horizontal lines
+jae make_var2_0j2
+
+inc var5j2
+
+mov bh,starting_pacej2        ;pace code
+cmp pace_varij2,bh
+ja go_inside3fire
+jmp downwords3fire
+go_inside3fire:
+mov bh,ending_pacej2
+cmp pace_varij2,bh
+jb now_gave_value3fire
+jmp downwords3fire
+now_gave_value3fire:
+add var5j2,1     ;( decomment these to increase speed of fire of jet2 )
+downwords3fire:
+
+jmp agejaoj2
+
+make_var2_0j2:
+mov chk_last1,0
+mov var2j2,0
+awayj2:
+
+mov bh,j2.x
+add bh,4
+mov var4j2,bh
+mov bh,j2.y
+add bh,4
+mov var5j2,bh
+
+agejaoj2:
+;inc var2j2     ;( decomment these to increase speed of jet2 )
+inc var2j2
+
+mov bh,starting_pacej2        ;pace code
+cmp pace_varij2,bh
+ja go_inside3fire2
+jmp downwords3fire2
+go_inside3fire2:
+mov bh,ending_pacej2
+cmp pace_varij2,bh
+jb now_gave_value3fire2
+jmp downwords3fire2
+now_gave_value3fire2:
+add var2j2,1     ;( decomment these to increase speed of fire of jet2 )
+downwords3fire2:
+;<<<<<<<<<< JET2 FIRE <<<<<<<<<<<<<<<<<<
+
+cmp lifej2,0   ;if life of j2 become zero do nothing with it
+jbe newlabel3r11    ;last label of j2 computing
+;//////////////Detecting robot by jet2/////////////
+mov bh,r1.x
+mov bl,bh
+add bl,8    ;width of robot
+cmp var4j2,bh
+jae newlabel1j2
+jmp newlabel3j2
+newlabel1j2:
+cmp var4j2,bl
+jbe newlabel2j2
+jmp newlabel3j2
+newlabel2j2:
+mov bh,r1.y   ;top of robot
+cmp var5j2,bh
+jae newlabel4j2
+jmp newlabel3j2
+newlabel4j2:
+; code for increasing jet2 score
+cmp chk_last1,0     ;;;;;;;;;new addition
+jne newlabel3j2     ;;;;;;;;;new addition
+dec lifer1     ; code for decrease robot life
+cmp check_for_sound1,1
+je soundoff1
+call hit_sound_proce ;sound when fire of jet2 hit the robot
+soundoff1:
+mov var2j2,22
+mov chk_last1,1     ;;;;;;;;;new addition
+newlabel3j2:
+;//////////////Detecting robot by jet2/////////////
+
+;//////////////Detecting jet2 by robot/////////////
+mov bh,j2.x
+mov bl,bh
+add bl,9    ;width of jet2
+cmp var4r1,bh
+jae newlabel1r11
+jmp newlabel3r11
+newlabel1r11:
+cmp var4r1,bl
+jbe newlabel2r11
+jmp newlabel3r11
+newlabel2r11:
+mov bh,j2.y
+add bh,4      ;to get top of jet2
+cmp var5r1,bh
+jbe newlabel4r11
+jmp newlabel3r11
+newlabel4r11:
+; code for increasing robot score
+cmp lifej2,0
+jbe newlabel3r11
+cmp checkyes,0        ;if j1=j2=j3=0 , checkyes = 1
+jne newlabel3r11
+cmp chk_last2,0        ;that bullet cross the upper layer or not (chk_last2 = 0 if it cross)
+jne newlabel3r11
+cmp checkyes3,0       ;if life of j2 is zero and j1 is not zero
+jne newlabel3r11
+
+dec lifej2      ; code for decrease jet2 life
+cmp chk_start2,0    ;medium mode will have 15 score than 10 score of easy..
+jne add_total_15
+cmp chk_start3,0    ;medium mode will have 15 score than 10 score of easy..
+jne add_total_15_3
+add totall_scori,10
+jmp bus_kafi
+add_total_15:
+add totall_scori,15
+jmp bus_kafi  
+add_total_15_3:
+add totall_scori,20
+bus_kafi:           ;medium mode will have 15 score than 10 score of easy
+;inc si          ;.......for_score
+mov var2r1,19
+mov chk_last2,1            ;if we donot do this then the bullet will penetrate and life of j2 will decrease with bullet pentration
+newlabel3r11:
+;//////////////Detecting jet2 by robot/////////////
+
+age4:
+
+cmp lifej1,0   ;if life of j1 become zero do nothing with it
+jbe newlabel3r1    ;last label of j1 computing
+;//////////////Detecting robot by jet1/////////////
+mov bh,r1.x
+mov bl,bh
+add bl,8    ;width of robot
+cmp var4,bh
+jae newlabel1
+jmp newlabel3
+newlabel1:
+cmp var4,bl
+jbe newlabel2
+jmp newlabel3
+newlabel2:
+mov bh,r1.y
+inc bh
+cmp var5,bh
+jae newlabel4
+jmp newlabel3
+newlabel4:
+; code for increasing jet1 score
+cmp chk_last3,0
+jne newlabel3
+dec lifer1    ; code for decrease robot life
+cmp check_for_sound1,1
+je soundoff2
+call hit_sound_proce ;sound when fire of jet1 hit the robot
+soundoff2:
+mov var2,22
+mov chk_last3,1
+newlabel3:
+;//////////////Detecting robot by jet1/////////////
+
+;//////////////Detecting jet1 by robot/////////////
+mov bh,j1.x
+mov bl,bh
+add bl,9    ;width of jet1
+cmp var4r1,bh
+jae newlabel1r1
+jmp newlabel3r1
+newlabel1r1:
+cmp var4r1,bl
+jbe newlabel2r1
+jmp newlabel3r1
+newlabel2r1:
+mov bh,j1.y
+add bh,4      ;to get top of jet1
+cmp var5r1,bh
+jbe newlabel4r1
+jmp newlabel3r1
+newlabel4r1:
+; code for increasing robot score
+cmp checkyes,0   ;if j1=j2=j3=0 ,checkyes =1 
+jne newlabel3r1
+cmp chk_last4,0  ;bullet cross uper layer or not
+jne newlabel3r1
+cmp checkyes2,0   ;if j1 = 0 and j2 is not 0
+jne newlabel3r1
+dec lifej1    ; code for decrease jet1 life
+cmp chk_start2,0    ;medium mode will have 15 score than 10 score of easy..
+jne add_total_15_2
+cmp chk_start3,0    ;medium mode will have 15 score than 10 score of easy..
+jne add_total_20_2
+add totall_scori,10
+jmp bus_kafi2
+add_total_15_2:
+add totall_scori,15 
+jmp bus_kafi2
+add_total_20_2:
+add totall_scori,20
+bus_kafi2:           ;medium mode will have 15 score than 10 score of easy
+mov var2r1,19
+mov chk_last4,1
+newlabel3r1:
+;//////////////Detecting jet1 by robot/////////////
+
+cmp chk_for_level2,0       ;for level2
+je dont_level2
+
+cmp lifej3,0   ;if life of j3 become zero do nothing with it
+jbe newlabel3r11j3    ;last label of j3 computing
+;//////////////Detecting robot by jet3/////////////
+mov bh,r1.x
+mov bl,bh
+add bl,8    ;width of robot
+cmp var4j3,bh
+jae newlabel1j3
+jmp newlabel3j3
+newlabel1j3:
+cmp var4j3,bl
+jbe newlabel2j3
+jmp newlabel3j3
+newlabel2j3:
+mov bh,r1.y
+inc bh
+cmp var5j3,bh
+jae newlabel4j3
+jmp newlabel3j3
+newlabel4j3:
+; code for increasing jet3 score
+cmp chk_last3j3,0
+jne newlabel3j3
+dec lifer1    ; code for decrease robot life
+cmp check_for_sound1,1
+je soundoff3
+call hit_sound_proce ;sound when fire of jet3 hit the robot
+soundoff3:
+mov var2j3,22
+mov chk_last3j3,1
+newlabel3j3:
+;//////////////Detecting robot by jet3/////////////
+
+;//////////////Detecting jet3 by robot/////////////
+mov bh,j3.x
+mov bl,bh
+add bl,9    ;width of jet3
+cmp var4r1,bh
+jae newlabel1r11j3
+jmp newlabel3r11j3
+newlabel1r11j3:
+cmp var4r1,bl
+jbe newlabel2r11j3
+jmp newlabel3r11j3
+newlabel2r11j3:
+mov bh,j3.y
+add bh,4      ;to get top of jet3
+cmp var5r1,bh
+jbe newlabel4r11j3
+jmp newlabel3r11j3
+newlabel4r11j3:
+; code for increasing robot score
+cmp lifej3,0
+jbe newlabel3r11j3
+cmp checkyes,0         ;if j1=j2=j3=0 
+jne newlabel3r11j3
+cmp chk_last2j3,0    ;bullet cross upper or not
+jne newlabel3r11j3
+
+dec lifej3      ; code for decrease jet3 life
+cmp chk_start2,0    ;medium mode will have 15 score than 10 score of easy..
+jne add_total_15j3
+cmp chk_start3,0    ;medium mode will have 15 score than 10 score of easy..
+jne add_total_15j3
+add totall_scori,10
+jmp bus_kafij3
+add_total_15j3:
+add totall_scori,15
+jmp bus_kafij3  
+add_total_15_3j3:
+add totall_scori,20
+bus_kafij3:           ;medium mode will have 15 score than 10 score of easy
+mov var2r1,19
+mov chk_last2j3,1
+newlabel3r11j3:
+;//////////////Detecting jet3 by robot/////////////
+dont_level2:
+
+cmp lifej1,0     ;j1 = 0,j2 = 0  (j3 = 0 for level2)
+jbe yes1
+jmp yes3
+yes1:
+cmp lifej2,0
+jbe yes2
+jmp yes3
+yes2:
+cmp chk_for_level2,0   ;for level2
+je do_nothing
+cmp lifej3,0
+jbe do_nothing
+jmp yes3
+do_nothing:
+mov checkyes,1
+
+
+yes3:             ;j1 = 0,j2 != 0
+cmp lifej1,0
+jbe yes4
+jmp yes5
+yes4:
+mov life_outj1,1
+cmp lifej2,0
+jbe yes5 
+mov checkyes2,1
+yes5:
+
+cmp lifej2,0     ;j1 != 0,j2 = 0
+jbe yes6
+jmp yes7
+yes6:
+mov life_outj2,1
+cmp lifej1,0
+jbe yes7
+mov checkyes3,1
+yes7:
+
+
+cmp lifej3,0    ;j3 = 0
+jbe yess
+jmp yess1
+yess:
+mov life_outj3,1
+yess1:
+
+cmp chk_for_level3,1         ;level3 jets dont die
+jne not_lev_3
+;if level3
+;/////
+cmp lifej1,0        ;j1,j2,j3
+jbe jj2
+jmp not_lev_3
+jj2:
+cmp lifej2,0
+jbe jj3
+jmp not_lev_3
+jj3:
+cmp lifej3,0
+jbe now_doo
+jmp not_lev_3ee
+not_lev_3ee:
+;/////
+cmp lifej2,0        ;j2,j3,j1
+jbe jj2p1
+jmp not_lev_3
+jj2p1:
+cmp lifej3,0
+jbe jj3p1
+jmp not_lev_3
+jj3p1:
+cmp lifej1,0
+jbe now_doo
+jmp not_lev_3p1
+not_lev_3p1:
+;/////
+cmp lifej1,0        ;j1,j3,j2
+jbe jj2p2
+jmp not_lev_3
+jj2p2:
+cmp lifej3,0
+jbe jj3p2
+jmp not_lev_3
+jj3p2:
+cmp lifej2,0
+jbe now_doo
+jmp not_lev_3p2
+not_lev_3p2:
+;/////
+cmp lifej2,0        ;j2,j1,j3
+jbe jj2p3
+jmp not_lev_3
+jj2p3:
+cmp lifej1,0
+jbe jj3p3
+jmp not_lev_3
+jj3p3:
+cmp lifej3,0
+jbe now_doo
+jmp not_lev_3p3
+not_lev_3p3:
+;/////
+cmp lifej3,0        ;j3,j1,j2
+jbe jj2p4
+jmp not_lev_3
+jj2p4:
+cmp lifej1,0
+jbe jj3p4
+jmp not_lev_3
+jj3p4:
+cmp lifej2,0
+jbe now_doo
+jmp not_lev_3p4
+not_lev_3p4:
+;/////
+cmp lifej3,0        ;j3,j3,j1
+jbe jj2p5
+jmp not_lev_3
+jj2p5:
+cmp lifej2,0
+jbe jj3p5
+jmp not_lev_3
+jj3p5:
+cmp lifej1,0
+jbe now_doo
+jmp not_lev_3p5
+not_lev_3p5:
+;/////
+now_doo:    ;reseting the variables
+mov lifej1,10
+mov life_outj1,0
+mov checkyes2,0
+mov lifej2,10
+mov life_outj2,0
+mov checkyes3,0
+mov lifej3,10
+mov life_outj3,0
+mov checkyes,0
+not_lev_3:
+
+cmp lifer1,0    ;r1 = 0
+jbe gameover
+jmp phari
+gameover:
+mov life_outr1,1
+mov chackoo,1
+
+phari:
+
+cmp checkyes,1   ;robot win
+je rbotwin
+jmp jareja
+rbotwin:
+mov chk_robo_win,1
+jareja:
+
+call draw_background
+call draw_name_at_start
+draw_score_board lifer1,lifej1,lifej2
+cmp chk_for_level2,0
+je naoo
+cmp lifej3,0    ;if life of jet3 become zero donot draw it
+jbe naoo
+draw_j3_scoreboard lifej3
+naoo:
+call draw_score_for_robot
+
+mov bh,coming_time_for_jet2    ;for new jet to come
+cmp var3,bh            
+jae trick1
+jmp trick2
+trick1:
+cmp life_outj2,0
+jne trick2
+;check for second face jet
+cmp chk_sec_jet,0
+je first_jet
+draw_second_jet j2
+jmp not_first
+first_jet:
+draw_jet1 j2
+not_first:
+jet_firing var4j2,var5j2,j2.colur  ;jet2 firing 139
+trick2:
+cmp life_outr1,0
+jne jojii
+cmp chk_second_robo,0
+je dont_draw
+mov r1.colur,146
+draw_second_robot r1
+jmp dnt_draw
+dont_draw:
+draw_robot r1
+dnt_draw:
+cmp ckh_spce,0
+je jojiife 
+cmp var_mouse_shoot,0
+je jojiife
+robot_firing var4r1,var5r1,r1.colur
+
+jojiife:
+
+jojii:
+cmp life_outj1,0
+jne foofiabnahi
+;check for second face jet
+cmp chk_sec_jet,0
+je first_one3
+draw_second_jet j1
+jmp foofiabnahi
+first_one3:
+draw_jet1 j1    
+foofiabnahi:
+cmp chk_for_level2,0       ;for level2
+je nuutri
+
+cmp chk_for_coin,1
+jne notlev3
+coin_coming var4coin,var5coin,colour_of_coin   ;colour of coin
+notlev3:  
+cmp life_outj3,0  ;if j3 life out then donot draw it
+jne nuutri
+;check for second face jet
+cmp chk_sec_jet,0
+je first_one2
+draw_second_jet j3
+jmp nuutri
+first_one2:
+draw_jet1 j3             ;for level2
+nuutri:
+
+cmp life_outj1,0
+jne foofiabnahi2
+jet_firing var4,var5,j1.colur   ;jet1 firing 131
+foofiabnahi2:
+cmp chk_for_level2,0       ;for level2
+je foofi
+cmp life_outj3,0  ;if j3 life out then donot draw its firing
+jne foofi
+jet_firing var4j3,var5j3,j3.colur   ;jet3 firing  ;130
+foofi:
+mov bh,timer_for_speed
+cmp var_for_time,bh
+jae call_for_loop
+jmp loopap1
+call_for_loop:
+cmp chk_start3,0
+jne tmebon
+cmp chk_start2,0
+jne tootahua
+call timer2
+jmp phoopiii
+tootahua:
+call timer3
+tmebon:
+call timer4
+phoopiii:
+jmp loopap2
+loopap1:
+cmp chk_start3,0
+jne ribati
+cmp chk_start2,0
+jne tmebarha
+call timer1
+jmp biba
+tmebarha:
+call timer2
+ribati:
+call timer3
+biba:
+inc var_for_time
+loopap2:
+
+cmp chackoo,0          ; to edit.....................
+jne go_for_ever       ; to edit.....................
+cmp chk_robo_win,0
+jne go_for_ever1
+cmp only_chng_chk,0
+jne geeeteoutapna
+so_go_upward:
+call saving_variables  ;???????????????variables are saving in file
+call saving_name
+call clear_screen
+jmp label1
+
+go_for_ever:        ; to edit.....................
+call clear_screen
+call draw_you_loose
+call draw_total_score
+call loose_sound
+
+mov cx,01Fh
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+
+call clear_screen
+call saving_log           ;saving name and score
+mov one_var,0  ;for loading
+mov chk_for_restart,1  ;to make total score zero
+jmp vava             
+
+go_for_ever1:
+;if robot win then its life will be multiplied by above number and then will be added in the total score 
+mov ah,0
+mov al,lifer1
+mov bh,multi_by_life     
+mul bh   ;answer is in al
+mov bh,0
+mov bl,al  ;answer is in bh
+add totall_scori,bx
+call clear_screen
+call draw_you_wonn
+call draw_total_score
+call loose_sound
+
+mov cx,01Fh
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+
+call clear_screen
+cmp chk_for_level2,1
+je level_2_done
+jmp level_2
+level_2_done:
+call draw_level_up1
+mov cx,01Fh
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+call clear_screen
+call draw_level_3
+
+mov cx,01Fh
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+
+mov one_var,0  ;for loading
+mov chk_for_restart,0
+mov chk_for_level3,1
+mov level2_done,1
+jmp vava
+level_2:
+call draw_level_up1
+mov cx,01Fh
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+call clear_screen
+call draw_level_2
+
+mov cx,01Fh
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+
+mov one_var,0  ;for loading
+mov chk_for_level2,1
+mov chk_for_restart,0
+jmp vava   
+
+geeeteout:
+jmp losti
+geeeteoutapna:
+call draw_pause
+geeeteoutapnaee:
+mov ah,00h
+int 16h
+mov bh,ah
+cmp ah,2Eh  ;c
+jne geeeteoutapnaee
+mov only_chng_chk,0
+jmp so_go_upward
+losti:
+;call saving_log           ;saving name and score
+mov ah,00h
+int 16h
+mov ah,4ch
+int 21h
+main endp      ;main function end        ;**************************************************
+
+draw_total_score proc ;????????????draw_total_score??????????
+mov bp,0
+mov ah,02h	;cursor
+mov dh,18
+mov dl,23
+int 10h
+mov ah,13h  ;printing 
+mov al,1
+mov cx,11
+mov bp,offset robot_total_score
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov digits,0 
+mov dx,00h
+mov bx,10
+mov ax,totall_scori
+now_do_pushing:
+div bx
+push dx
+mov dx,00h
+inc digits
+cmp ax,0
+jne now_do_pushing
+mov ax,00h
+mov bx,00h
+mov dx,00h
+mov dh,20
+mov dl,28
+poooping:
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,09h
+pop bx
+mov al,bl
+add al,48
+mov cx,1
+mov bl,135
+mov bh,0h
+int 10h
+inc dl
+dec digits
+cmp digits,0
+jne poooping
+ret
+draw_total_score endp ;??????????????????????????????????????
+
+draw_score_for_robot proc;<<<<<<<<<<draw_score_for_robot<<<<<<<<<<<<<<
+mov dx,00h
+mov bx,10
+mov digits,0
+mov ax,totall_scori
+now_do_pushing:
+div bx
+push dx
+mov dx,00h
+inc digits
+cmp ax,0
+jne now_do_pushing
+mov ax,00h
+mov bx,00h
+mov dx,00h
+mov dh,5
+mov dl,69
+poooping:
+mov ah,02h  ;for cursor move
+int 10h
+
+mov ah,09h
+pop bx
+mov al,bl
+add al,48
+mov cx,1
+mov bl,134
+mov bh,0h
+int 10h
+inc dl
+dec digits
+cmp digits,0
+jne poooping
+
+mov bp,0   ;to remove character errors
+ret
+draw_score_for_robot endp;<<<<<<<<<<<<<<<<<<<<<<<
+
+clear_screen proc ;############### CLEAR_SCREEN ###########
+mov AL,12h
+mov AH,0
+int 10H
+ret
+clear_screen endp  ;####################################
+
+timer1 proc ;############### TIMER #############
+mov cx,1h
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+ret
+timer1 endp  ;##################################
+
+timer2 proc ;############### TIMER #############
+mov cx,0h
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+ret
+timer2 endp  ;##################################
+
+timer3 proc ;############### TIMER #############
+mov cx,0h
+mov dx,0DFFFh  ;microseconds
+mov ah,86h
+int 15h
+ret
+timer3 endp  ;##################################
+
+timer4 proc ;############### TIMER #############
+mov cx,0h
+mov dx,0EFFFh  ;microseconds
+mov ah,86h
+int 15h
+ret
+timer4 endp  ;##################################
+
+draw_background proc ;which display background screen ;&&&&&&&&&&&& BACKGROUND &&&&&&&&&&&&&&&&&&
+mov ah,06h  ;big box colour change  ;upper
+mov al,0  ;wese
+mov bh,8 ;colour 
+mov cl,1h  
+mov ch,1h  
+mov dl,61  
+mov dh,26  
+int 10h
+
+mov ah,06h  ;big box colour change  ;lower
+mov al,0  ;wese
+mov bh,2  ;colour
+mov ch,27  
+mov cl,1  
+mov dl,61  
+mov dh,28  
+int 10h
+ret
+draw_background endp    ;&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& 
+
+draw_menu proc ;which display start up menu ;&&&&&&&&&&&& BACKGROUND &&&&&&&&&&&&&&&&&&
+mov ah,06h  ;big box colour change  ;upper
+mov al,0  ;wese
+mov bh,8 ;colour 
+mov cl,1h  ; cl(row)(40max) = 0
+mov ch,1h  ; ch(column)(25max) = 0
+mov dl,78  ; dl(row)(40max)
+mov dh,28  ; dh(column)(25max)
+int 10h
+ret
+draw_menu endp    ;&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&& 
+
+display_options proc ;^^^^^^^^^^^^^^^^^^^^^^^^
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 1:  Select mode"
+mov al,1
+mov cx,21
+mov bp,offset opt1
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,13
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 2:  help"
+mov al,1
+mov cx,14
+mov bp,offset opt2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,15
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 3:  credits"
+mov al,1
+mov cx,17
+mov bp,offset opt_credits
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,17
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press esc:  exit"
+mov al,1
+mov cx,16
+mov bp,offset opt3
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+ret
+display_options endp ;^^^^^^^^^^^^^^^^^^^^^^^
+
+display_mediums proc ;^^^^^^^^^^^^^^^^^^^^^^^^
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 1:  Easy"
+mov al,1
+mov cx,14
+mov bp,offset opt4
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,13
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 2:  Medium"
+mov al,1
+mov cx,16
+mov bp,offset opt5
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,15
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 3:  Hard"
+mov al,1
+mov cx,14
+mov bp,offset opt6
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,17
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press backspace for back"
+mov al,1
+mov cx,24
+mov bp,offset opt9
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+ret
+display_mediums endp ;^^^^^^^^^^^^^^^^^^^^^^^
+
+start_page proc ;^^^^^^^^^^^^^^^^^^^^
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 1:  Start new game"
+mov al,1
+mov cx,20
+mov bp,offset opt7
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,13
+mov dl,30
+int 10h
+mov ah,13h  ;printing "press 2: control options"
+mov al,1
+mov cx,26
+mov bp,offset control_opt
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,15
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 3:  sound options"
+mov al,1
+mov cx,23
+mov bp,offset sound_opt
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,17
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 4:  select robot"
+mov al,1
+mov cx,22
+mov bp,offset select_robot
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,19
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 5:  select jet"
+mov al,1
+mov cx,20
+mov bp,offset select_jet
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,21
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press esc :  exit"
+mov al,1
+mov cx,17
+mov bp,offset opt8
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,23
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press backspace for back"
+mov al,1
+mov cx,24
+mov bp,offset opt9
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+ret
+start_page endp ;^^^^^^^^^^^^^^^^^^^^
+
+draw_help proc  ;!!!!!!!!!!! Draw help !!!!!!!!!!!
+mov bp,0
+mov ah,02h	;cursor
+mov dh,5
+mov dl,5
+int 10h
+mov ah,13h  ;printing help
+mov al,1
+mov cx,72     ;to change
+mov bp,offset helping1
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,6
+mov dl,5
+int 10h
+mov ah,13h  ;printing help
+mov al,1
+mov cx,70     ;to change
+mov bp,offset helping2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,7
+mov dl,5
+int 10h
+mov ah,13h  ;printing help
+mov al,1
+mov cx,71     ;to change
+mov bp,offset helping3
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,8
+mov dl,5
+int 10h
+mov ah,13h  ;printing help
+mov al,1
+mov cx,73     ;to change
+mov bp,offset helping4
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,9
+mov dl,5
+int 10h
+mov ah,13h  ;printing help
+mov al,1
+mov cx,42     ;to change
+mov bp,offset helping5
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,13
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press backspace for back"
+mov al,1
+mov cx,24
+mov bp,offset opt9
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+ret
+draw_help endp  ;!!!!!!!!!!! Draw help !!!!!!!!!!!
+
+draw_logo_front proc  ;<<<<<<<<<<<< DRAW LOGO FRONT <<<<<<<<<
+mov bp,0
+mov ah,02h	;cursor
+mov dh,2
+mov dl,17
+int 10h
+mov ah,13h  ;printing "jets var"
+mov al,1
+mov cx,15
+mov bp,offset str_logo
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,3
+mov dl,17
+int 10h
+mov ah,13h  ;printing "jets var"
+mov al,1
+mov cx,46
+mov bp,offset str_logo2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,4
+mov dl,17
+int 10h
+mov ah,13h  ;printing "jets var"
+mov al,1
+mov cx,49
+mov bp,offset str_logo3
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,5
+mov dl,13
+int 10h
+mov ah,13h  ;printing "jets var"
+mov al,1
+mov cx,53
+mov bp,offset str_logo4
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,6
+mov dl,13
+int 10h
+mov ah,13h  ;printing "jets var"
+mov al,1
+mov cx,50
+mov bp,offset str_logo5
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,7
+mov dl,27
+int 10h
+mov ah,13h  ;printing "jets var"
+mov al,1
+mov cx,16
+mov bp,offset str_logo6
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+ret
+draw_logo_front endp  ;<<<<<<<<<<<< DRAW LOGO FRONT <<<<<<<<<
+
+draw_controls_section proc ;>>>>>>>>>.Draw control section >>>>>>>>>
+mov bp,0
+mov ah,02h	;cursor
+mov dh,9
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 1:  keyboard"
+mov al,1
+mov cx,17
+mov bp,offset control_opt2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 2:  Mouse"
+mov al,1
+mov cx,14
+mov bp,offset control_opt3
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,13
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press backspace for back"
+mov al,1
+mov cx,24
+mov bp,offset opt9
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+ret
+draw_controls_section endp ;>>>>>>>>>.Draw control section >>>>>>>>>
+
+draw_sound_section proc ;?????????? Draw sound section ??????
+mov bp,0
+mov ah,02h	;cursor
+mov dh,9
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 1 to on sound"
+mov al,1
+mov cx,11
+mov bp,offset sound_opt2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 2 to off sound"
+mov al,1
+mov cx,12
+mov bp,offset sound_opt3
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,13
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press backspace for back"
+mov al,1
+mov cx,24
+mov bp,offset opt9
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+ret
+draw_sound_section endp ;??????????Draw sound section????
+
+draw_you_wonn proc ;<<<<<<<<<<<draw you won<<<<<<<<<<<
+mov bp,0
+mov ah,02h	;cursor
+mov dh,8
+mov dl,1
+int 10h
+mov ah,13h  ;printing "you win"
+mov al,1
+mov cx,43
+mov bp,offset str_logo_won
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,9
+mov dl,1
+int 10h
+mov ah,13h  ;printing "you win"
+mov al,1
+mov cx,44
+mov bp,offset str_logo_won2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,10
+mov dl,2
+int 10h
+mov ah,13h  ;printing "you win"
+mov al,1
+mov cx,59
+mov bp,offset str_logo_won3
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,3
+int 10h
+mov ah,13h  ;printing "you win"
+mov al,1
+mov cx,59
+mov bp,offset str_logo_won4
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,12
+mov dl,4
+int 10h
+mov ah,13h  ;printing "you win"
+mov al,1
+mov cx,59
+mov bp,offset str_logo_won5
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,13
+mov dl,5
+int 10h
+mov ah,13h  ;printing "you win"
+mov al,1
+mov cx,58
+mov bp,offset str_logo_won6
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,14
+mov dl,5
+int 10h
+mov ah,13h  ;printing "you win"
+mov al,1
+mov cx,58
+mov bp,offset str_logo_won7
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,15
+mov dl,5
+int 10h
+mov ah,13h  ;printing "you win"
+mov al,1
+mov cx,58
+mov bp,offset str_logo_won8
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+ret
+draw_you_wonn endp ;<<<<<<<<<<<draw you won<<<<<<<<<<<
+
+draw_you_loose proc ;<<<<<<<<<<<draw you lose<<<<<<<<<<<
+mov bp,0
+mov ah,02h	;cursor
+mov dh,8
+mov dl,1
+int 10h
+mov ah,13h  ;printing "you lose"
+mov al,1
+mov cx,33
+mov bp,offset str_logo_lose
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,9
+mov dl,2
+int 10h
+mov ah,13h  ;printing "you lose"
+mov al,1
+mov cx,32
+mov bp,offset str_logo_lose2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,10
+mov dl,3
+int 10h
+mov ah,13h  ;printing "you lose"
+mov al,1
+mov cx,31
+mov bp,offset str_logo_lose3
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,4
+int 10h
+mov ah,13h  ;printing "you lose"
+mov al,1
+mov cx,61
+mov bp,offset str_logo_lose4
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,12
+mov dl,5
+int 10h
+mov ah,13h  ;printing "you lose"
+mov al,1
+mov cx,61
+mov bp,offset str_logo_lose5
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,13
+mov dl,5
+int 10h
+mov ah,13h  ;printing "you lose"
+mov al,1
+mov cx,61
+mov bp,offset str_logo_lose6
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,14
+mov dl,5
+int 10h
+mov ah,13h  ;printing "you lose"
+mov al,1
+mov cx,57
+mov bp,offset str_logo_lose7
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,15
+mov dl,5
+int 10h
+mov ah,13h  ;printing "you lose"
+mov al,1
+mov cx,64
+mov bp,offset str_logo_lose8
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+ret
+draw_you_loose endp ;<<<<<<<<<<<draw you lose<<<<<<<<<<<
+
+draw_new_loading_logo proc ;<<<<<<<<<
+mov bp,0
+mov ah,02h	;cursor
+mov dh,27
+mov dl,35
+int 10h
+mov ah,13h  ;printing "you lose"
+mov al,1
+mov cx,10
+mov bp,offset loaading
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+ret
+draw_new_loading_logo endp ;<<<<<<<<<
+
+draw_mouse_enable proc ;+++++++++++++++++++draw_mouse_enable+++++++++++++
+mov bp,0
+mov ah,02h	;cursor
+mov dh,18
+mov dl,23
+int 10h
+mov ah,13h  ;printing "mouse is enable"
+mov al,1
+mov cx,30
+mov bp,offset mouse_enable
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+ret
+draw_mouse_enable endp  ;+++++++++++++++++++++++++++++++++++++++++
+
+draw_keyboard_enable proc ;???????????????draw_keyboard_enable????????????
+mov bp,0
+mov ah,02h	;cursor
+mov dh,18
+mov dl,23
+int 10h
+mov ah,13h  ;printing "keyboard is enable"
+mov al,1
+mov cx,33
+mov bp,offset keyboard_enable
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+ret
+draw_keyboard_enable endp  ;?????????????????????????????????????????????
+
+draw_front_screen proc ;<<<<<<<<<<<<<<<<<draw_front_screen<<<<<<<<<<<<<<<<<<<<<<
+mov ah,06h  ;big box colour change 
+mov al,0  ;wese
+mov bh,8 ;colour 
+mov cl,12h 
+mov ch,9h  
+mov dl,58  
+mov dh,22  
+int 10h
+
+call draw_logo_front
+mov jex.x,18
+mov jex.y,9
+mov jex.colur,135
+draw_jet1 jex
+mov jex.x,50
+mov jex.y,9
+mov jex.colur,135
+draw_jet1 jex
+mov r1.x,34
+mov r1.y,15
+mov r1.colur,135
+draw_robot r1
+
+mov cx,05h
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,25
+mov dl,28
+int 10h
+mov ah,13h  ;printing "Press enter to continue"
+mov al,1
+mov cx,23
+mov bp,offset front_page_var
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov cx,0Ch
+mov dx,0FFFFh  ;microseconds
+mov ah,86h
+int 15h
+
+call clear_screen
+ret
+draw_front_screen endp  ;>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+draw_level_up1 proc ;<<<<<<<<<<<<<<<<<<<< draw_level_up1 <<<<<<<<<<<
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,15
+int 10h
+mov ah,13h  ;printing "levelup"
+mov al,1
+mov cx,43
+mov bp,offset str_level_up1
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+mov dl,15
+int 10h
+mov ah,13h  ;printing "levelup"
+mov al,1
+mov cx,50
+mov bp,offset str_level_up2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+mov dl,15
+int 10h
+mov ah,13h  ;printing "levelup"
+mov al,1
+mov cx,51
+mov bp,offset str_level_up3
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+mov dl,15
+int 10h
+mov ah,13h  ;printing "levelup"
+mov al,1
+mov cx,51
+mov bp,offset str_level_up4
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+mov dl,15
+int 10h
+mov ah,13h  ;printing "levelup"
+mov al,1
+mov cx,50
+mov bp,offset str_level_up5
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+mov dl,57
+int 10h
+mov ah,13h  ;printing "levelup"
+mov al,1
+mov cx,3
+mov bp,offset str_level_up6
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+ret
+draw_level_up1 endp ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+draw_select_robot proc ;*************draw_select_robot*******
+mov r1.x,20
+mov r1.y,12
+mov r1.colur,135
+draw_robot r1
+mov r1.x,40
+mov r1.y,12
+mov r1.colur,135
+draw_second_robot r1
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,23
+mov dl,23
+int 10h
+mov ah,13h  ;printing ";press 1: "
+mov al,1
+mov cx,8
+mov bp,offset opt_robo1
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,23
+mov dl,42
+int 10h
+mov ah,13h  ;printing ";press 2"
+mov al,1
+mov cx,8
+mov bp,offset opt_robo2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,26
+mov dl,50
+int 10h
+mov ah,13h  ;printing "Press backspace for back"
+mov al,1
+mov cx,24
+mov bp,offset opt9
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+
+mov r1.x,25  ;to change
+mov r1.y,19
+mov r1.colur,134
+ret
+draw_select_robot endp ;*********************************
+
+draw_select_jet proc ;*************draw_select_jett*******
+mov j1.x,20
+mov j1.y,12
+mov j1.colur,135
+draw_jet1 j1
+mov j1.x,40
+mov j1.y,12
+mov j1.colur,135
+draw_second_jet j1
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,21
+mov dl,20
+int 10h
+mov ah,13h  ;printing ";press 1: "
+mov al,1
+mov cx,8
+mov bp,offset opt_robo1
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,21
+mov dl,40
+int 10h
+mov ah,13h  ;printing ";press 2"
+mov al,1
+mov cx,8
+mov bp,offset opt_robo2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,26
+mov dl,50
+int 10h
+mov ah,13h  ;printing "Press backspace for back"
+mov al,1
+mov cx,24
+mov bp,offset opt9
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+
+mov j1.x,25  ;to change
+mov j1.y,1
+mov j1.colur,131
+ret
+draw_select_jet endp ;*********************************
+
+draw_credits proc ;????????????????draw_credits???????????
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,35
+int 10h
+mov ah,13h  ;printing "Coal project"
+mov al,1
+mov cx,12
+mov bp,offset coal_prjct
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,15
+mov dl,28
+int 10h
+mov ah,13h  ;printing "Created by:"
+mov al,1
+mov cx,8
+mov bp,offset made_by
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,17
+mov dl,28
+int 10h
+mov ah,13h  ;printing "abu huraira khan  i150455"
+mov al,1
+mov cx,27
+mov bp,offset myname
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,19
+mov dl,28
+int 10h
+mov ah,13h  ;printing "m.sarmad ajmal i150720"
+mov al,1
+mov cx,25
+mov bp,offset sarmad
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,21
+mov dl,28
+int 10h
+mov ah,13h  ;printing "Supervisor:"
+mov al,1
+mov cx,11
+mov bp,offset sprvisor
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,23
+mov dl,28
+int 10h
+mov ah,13h  ;printing "Sir Hassan Raza (Coal Lab instructor)"
+mov al,1
+mov cx,37
+mov bp,offset sprvisor_name
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,27
+mov dl,40
+int 10h
+mov ah,13h  ;printing "Press backspace for back"
+mov al,1
+mov cx,24
+mov bp,offset opt9
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+ret
+draw_credits endp ;???????????????????????????????????????
+
+draw_pause proc  ;((((((((((((((draw_pause))))))))))))))
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,17
+int 10h
+mov ah,13h  ;printing "pause"
+mov al,1
+mov cx,31
+mov bp,offset str_pause1
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+dec dl
+inc dh
+int 10h
+mov ah,13h  ;printing "pause"
+mov al,1
+mov cx,34
+mov bp,offset str_pause2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "pause"
+mov al,1
+mov cx,34
+mov bp,offset str_pause3
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "pause"
+mov al,1
+mov cx,34
+mov bp,offset str_pause4
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "pause"
+mov al,1
+mov cx,3
+mov bp,offset str_pause5
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "pause"
+mov al,1
+mov cx,3
+mov bp,offset str_pause6
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+ret
+draw_pause endp ;(((((((((((((((((((((())))))))))))))))))))))
+
+draw_name_at_start proc ;<<<<<<<<<<<<<<<<draw_name_at_start<<<<<<<<
+mov simple_var_for_name,0
+mov bp,0
+mov ah,02h	;cursor        ;code for hi!
+mov dl,3
+mov dh,0
+int 10h
+mov dl,"H"
+mov ah,02h
+int 21h
+
+mov ah,02h	;cursor
+inc dl
+mov dh,0
+int 10h
+mov dl,"i"
+mov ah,02h
+int 21h
+
+mov ah,02h	;cursor
+inc dl
+mov dh,0
+int 10h
+mov dl,"!"
+mov ah,02h
+int 21h
+
+mov ah,02h	;cursor
+inc dl
+mov dh,0
+int 10h
+mov dl," "
+mov ah,02h
+int 21h
+
+mov dl,30
+mov simple_var_for_name,dl
+mov si,offset input_name
+add si,2
+looping:
+mov dl,[si]
+mov ah,02h
+int 21h
+mov ah,02h	;cursor
+inc simple_var_for_name
+mov dl,simple_var_for_name
+mov dh,0
+int 10h
+
+inc si
+mov bl,[si]
+cmp bl,'$'
+je bahir
+jmp looping
+bahir:
+mov bp,0
+ret
+draw_name_at_start endp ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+sound_proce proc ;?????????????/////sound_proce////????????????
+in al,61h
+or al,00000011b
+out 61h,al
+
+mov al,10110110b
+out 43h,al
+mov sound_var2,0
+mov sound_var,0
+looping:
+mov ax,sound_var
+out 42h,al
+mov al,ah
+out 42h,al
+nao:
+inc sound_var2
+cmp sound_var2,700
+je doit
+jmp nao
+doit:
+mov sound_var2,0
+
+inc sound_var
+cmp sound_var,1000
+jae bahir
+jmp looping
+bahir:
+in al,61h
+and al,11111100b
+out 61h,al
+ret
+sound_proce endp ;??????????????????????????????????
+
+hit_sound_proce proc ;?????????????/////sound_proce////????????????
+in al,61h
+or al,00000011b
+out 61h,al
+
+mov al,10110110b
+out 43h,al
+mov sound_var2,0
+mov sound_var,0
+looping:
+mov ax,2000
+out 42h,al
+mov al,ah
+out 42h,al
+nao:
+inc sound_var2
+cmp sound_var2,700
+je doit
+jmp nao
+doit:
+mov sound_var2,0
+
+inc sound_var
+cmp sound_var,1000
+jae bahir
+jmp looping
+bahir:
+in al,61h
+and al,11111100b
+out 61h,al
+ret
+hit_sound_proce endp ;??????????????????????????????????
+
+draw_resume_screen proc ;<<<<<<<<<<<<<<<draw_resume_screen>>>>>>>>>>>>>>
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 1:  Resume"
+mov al,1
+mov cx,16
+mov bp,offset resume_opt
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,13
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press 2:  New Game"
+mov al,1
+mov cx,18
+mov bp,offset strt_new_game
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+mov dh,15
+mov dl,30
+int 10h
+mov ah,13h  ;printing "Press esc:  exit"
+mov al,1
+mov cx,16
+mov bp,offset opt3
+mov bh,0h  ;wese
+mov bl,136  ;colour
+int 10h
+ret
+draw_resume_screen endp  ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<,
+
+loose_sound proc ;?????????????/////loose_sound////????????????
+in al,61h
+or al,00000011b
+out 61h,al
+
+mov al,10110110b
+out 43h,al
+mov sound_var,700
+mov sound_var3,0
+mov sound_var2,0
+mov sound_chk1,0
+looping:
+mov ax,sound_var
+out 42h,al
+mov al,ah
+out 42h,al
+nao:
+inc sound_var2
+cmp sound_var2,2000
+je doit
+jmp nao
+doit:
+mov sound_var2,0
+
+cmp sound_chk1,0
+je incre
+inc sound_var
+jmp boo
+incre:
+dec sound_var
+boo:
+cmp sound_var,2
+jbe bhirr
+cmp sound_var,1000
+jae bahir
+jmp noo
+bahir:
+mov sound_chk1,0
+jmp abe
+bhirr:
+mov sound_chk1,1
+abe:
+inc sound_var3
+cmp sound_var3,10
+jae bahii
+noo:
+jmp looping
+bahii:
+
+in al,61h
+and al,11111100b
+out 61h,al
+ret
+loose_sound endp ;??????????????????????????????????
+
+saving_variables proc ;<<<<<<<<<<<<<<<<<<<saving_variables>>>>>>>>>>>>>>
+mov si,offset resume_save_str
+
+mov bh,check
+add bh,48
+mov [si],bh
+    
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,checkj2
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,checkyes
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,checkyes2
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,checkyes3
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chackoo
+add bh,48
+mov [si],bh
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_robo_win
+add bh,48
+mov [si],bh   
+ 
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_last1
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_last2
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_last3
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_last3j3
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_last4
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,life_outj1
+add bh,48
+mov [si],bh   
+ 
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,life_outj2
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,life_outj3
+add bh,48
+mov [si],bh   
+
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,life_outr1
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_start1
+add bh,48
+mov [si],bh   
+ 
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_start2
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_start3
+add bh,48
+mov [si],bh  
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,check_for_sound1
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,check_for_mouse
+add bh,48
+mov [si],bh  
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,only_chng_chk
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,ckh_spce
+add bh,48
+mov [si],bh 
+ 
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,var_mouse_shoot
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,left_button
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,checkj3
+add bh,48
+mov [si],bh 
+  
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_second_robo
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_sec_jet
+add bh,48
+mov [si],bh   
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,level2_done
+add bh,48
+mov [si],bh 
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,varii1
+luuping:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi1
+jmp luuping
+bahi1:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi2
+jmp pouping
+bahi2:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var_for_time
+luuping2:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi3
+jmp luuping2
+bahi3:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping2:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi4
+jmp pouping2
+bahi4:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var1
+luuping3:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi5
+jmp luuping3
+bahi5:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping3:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi6
+jmp pouping3
+bahi6:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var2
+luuping4:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi7
+jmp luuping4
+bahi7:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping4:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi8
+jmp pouping4
+bahi8:
+ 
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var2j2
+luuping6:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi11
+jmp luuping6
+bahi11:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping6:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi12
+jmp pouping6
+bahi12:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var2r1
+luuping7:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi13
+jmp luuping7
+bahi13:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping7:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi14
+jmp pouping7
+bahi14:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var3
+luuping8:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi15
+jmp luuping8
+bahi15:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping8:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi16
+jmp pouping8
+bahi16:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var4
+luuping9:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi17
+jmp luuping9
+bahi17:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping9:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi18
+jmp pouping9
+bahi18:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var4j2
+luuping10:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi19
+jmp luuping10
+bahi19:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping10:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi20
+jmp pouping10
+bahi20:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var4r1
+luuping11:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi21
+jmp luuping11
+bahi21:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping11:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi22
+jmp pouping11
+bahi22:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var5
+luuping12:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi23
+jmp luuping12
+bahi23:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping12:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi24
+jmp pouping12
+bahi24:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var5j2
+luuping13:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi25
+jmp luuping13
+bahi25:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping13:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi26
+jmp pouping13
+bahi26:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var5r1
+luuping14:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi27
+jmp luuping14
+bahi27:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping14:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi28
+jmp pouping14
+bahi28:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,lifer1
+luuping15:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi29
+jmp luuping15
+bahi29:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping15:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi30
+jmp pouping15
+bahi30:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,lifej1
+luuping16:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi31
+jmp luuping16
+bahi31:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping16:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi32
+jmp pouping16
+bahi32:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,lifej2
+luuping17:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi33
+jmp luuping17
+bahi33:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping17:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi34
+jmp pouping17
+bahi34:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,lifej3
+luuping18:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi35
+jmp luuping18
+bahi35:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping18:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi36
+jmp pouping18
+bahi36:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,al_value
+luuping19:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi37
+jmp luuping19
+bahi37:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping19:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi38
+jmp pouping19
+bahi38:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var1j3
+luuping20:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi39
+jmp luuping20
+bahi39:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping20:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi40
+jmp pouping20
+bahi40:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var2j3
+luuping21:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi41
+jmp luuping21
+bahi41:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping21:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi42
+jmp pouping21
+bahi42:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var5j3
+luuping22:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi43
+jmp luuping22
+bahi43:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping22:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi44
+jmp pouping22
+bahi44:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var4j3
+luuping23:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi45
+jmp luuping23
+bahi45:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping23:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi46
+jmp pouping23
+bahi46:
+
+mov digits,0 
+mov bh,10
+mov ax,totall_scori
+luuping24:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi47
+jmp luuping24
+bahi47:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping24:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi48
+jmp pouping24
+bahi48:
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_for_level2
+add bh,48
+mov [si],bh 
+
+;//new_variables
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var_coin_x
+luuping25:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi49
+jmp luuping25
+bahi49:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping25:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi50
+jmp pouping25
+bahi50: 
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var4coin
+luuping26:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi51
+jmp luuping26
+bahi51:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping26:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi52
+jmp pouping26
+bahi52:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var5coin
+luuping27:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi53
+jmp luuping27
+bahi53:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping27:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi54
+jmp pouping27
+bahi54:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var2coin
+luuping28:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi55
+jmp luuping28
+bahi55:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping28:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi56
+jmp pouping28
+bahi56:
+
+mov digits,0 
+mov bh,10
+mov ah,0
+mov al,var_co_x
+luuping30:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahi59
+jmp luuping30
+bahi59:
+
+inc si
+mov bh,','
+mov [si],bh
+pouping30:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahi60
+jmp pouping30
+bahi60:
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_for_coin
+add bh,48
+mov [si],bh
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_for_level3
+add bh,48
+mov [si],bh
+
+inc si
+mov bh,','
+mov [si],bh  
+inc si
+mov bh,chk_last2j3
+add bh,48
+mov [si],bh
+;//new_variables
+
+;giving some 6 space at last
+inc si
+mov bh,','      ;coma after last digit of file
+mov [si],bh
+inc si
+mov bh,' '
+mov [si],bh
+inc si
+mov bh,' '
+mov [si],bh
+inc si
+mov bh,' '
+mov [si],bh
+inc si
+mov bh,' '
+mov [si],bh
+inc si
+mov bh,' '
+mov [si],bh
+inc si
+mov bh,' '
+mov [si],bh
+;giving some 6 space at last
+;//////////clearing_var_file////////////
+call clearing_var_file
+;//////////////////////////////////////
+;writing variables
+
+mov ax,0
+mov cx,200   ;be it orginal bcz values can change their digits
+
+mov ah,3Dh       ;select file handler
+mov dx,offset resumee_file
+mov al,2                  ;write both
+int 21h
+
+mov bx,ax
+mov ah,40h      ;write
+mov dx,offset resume_save_str
+int 21h
+
+mov ah,3Eh   ;closing file
+int 21h
+ret
+saving_variables endp ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+saving_name proc ;<<<<<<<<<<<<<<<<<saving_name>>>>>>>>>>>>>>>>>
+;clearing name_file
+mov ax,0
+mov cx,30   ;be it orginal bcz values can change their digits
+
+mov ah,3Dh       ;select file handler
+mov dx,offset name_file
+mov al,2                  ;write both
+int 21h
+
+mov bx,ax
+mov ah,40h   ;write
+mov dx,offset extra_str_for_saving_nme
+int 21h
+
+mov ah,3Eh   ;closing file
+int 21h
+
+;clearing name_file
+mov ax,0
+mov cx,30   ;be it orginal bcz values can change their digits
+
+mov ah,3Dh       ;select file handler
+mov dx,offset name_file
+mov al,2                  ;write both
+int 21h
+
+mov bx,ax
+mov ah,40h      ;write
+mov dx,offset input_name
+int 21h
+
+mov ah,3Eh   ;closing file
+int 21h
+ret
+saving_name endp ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+clearing_var_file  proc ;???????????????clearing_var_file????????????
+mov ax,0
+mov cx,200   ;be it orginal bcz values can change their digits
+
+mov ah,3Dh       ;select file handler
+mov dx,offset resumee_file
+mov al,2                  ;write both
+int 21h
+
+mov bx,ax
+mov ah,40h   ;write
+mov dx,offset extra_str_for_saving
+int 21h
+
+mov ah,3Eh   ;closing file
+int 21h
+ret
+clearing_var_file endp ;????????????????????????????????????????
+
+resuming proc ;<<<<<<<<<<<<<<resuming>>>>>>>>>>>>>>>
+mov cx,200
+mov ah,3Dh       ;select file handler
+mov dx,offset resumee_file
+mov al,2                  ;read/write both
+int 21h
+
+mov bx,ax
+mov ah,3Fh             ;reading
+mov dx,offset str_to_read_vars
+int 21h
+
+mov ah,3Eh   ;closing file
+int 21h
+
+;transfering value to variables
+mov si,offset str_to_read_vars
+mov temp1,0
+mov entered_num,0
+mov sample_v,0
+
+full_up:
+mov bh,'$'
+cmp [si],bh
+je backi
+mov bh,' '
+cmp [si],bh
+je backi
+couper:
+mov bh,','
+cmp [si],bh
+je nexti
+mov al,[si]
+sub al,48
+mov ah,0
+mov temp1,ax
+mov ax,0
+mov ax,entered_num
+mov bl,10
+mul bl
+add ax,temp1
+mov entered_num,ax
+inc si
+jmp couper
+nexti:
+inc si
+inc sample_v
+cmp sample_v,1
+jne aa1
+mov ax,entered_num
+mov check,al
+aa1:
+cmp sample_v,2
+jne aa2
+mov ax,entered_num
+mov checkj2,al
+aa2:
+cmp sample_v,3
+jne aa3
+mov ax,entered_num
+mov checkyes,al
+aa3:
+cmp sample_v,4
+jne aa4
+mov ax,entered_num
+mov checkyes2,al
+aa4:
+cmp sample_v,5
+jne aa5
+mov ax,entered_num
+mov checkyes3,al
+aa5:
+cmp sample_v,6
+jne aa6
+mov ax,entered_num
+mov chackoo,al
+aa6:
+cmp sample_v,7
+jne aa7
+mov ax,entered_num
+mov chk_robo_win,al
+aa7:
+cmp sample_v,8
+jne aa8
+mov ax,entered_num
+mov chk_last1,al
+aa8:
+cmp sample_v,9
+jne aaa9
+mov ax,entered_num
+mov chk_last2,al
+aaa9:
+cmp sample_v,10
+jne aa9
+mov ax,entered_num
+mov chk_last3,al
+aa9:
+cmp sample_v,11
+jne a1
+mov ax,entered_num
+mov chk_last3j3,al
+a1:
+cmp sample_v,12
+jne a2
+mov ax,entered_num
+mov chk_last4,al
+a2:
+cmp sample_v,13
+jne a3
+mov ax,entered_num
+mov life_outj1,al
+a3:
+cmp sample_v,14
+jne a4
+mov ax,entered_num
+mov life_outj2,al
+a4:
+cmp sample_v,15
+jne a5
+mov ax,entered_num
+mov life_outj3,al
+a5:
+cmp sample_v,16
+jne a6
+mov ax,entered_num
+mov life_outr1,al
+a6:
+cmp sample_v,17
+jne a7
+mov ax,entered_num
+mov chk_start1,al
+a7:
+cmp sample_v,18
+jne a8
+mov ax,entered_num
+mov chk_start2,al
+a8:
+cmp sample_v,19
+jne a9
+mov ax,entered_num
+mov chk_start3,al
+a9:
+cmp sample_v,20
+jne b1
+mov ax,entered_num
+mov check_for_sound1,al
+b1:
+cmp sample_v,21
+jne b2
+mov ax,entered_num
+mov check_for_mouse,al
+b2:
+cmp sample_v,22
+jne b3
+mov ax,entered_num
+mov only_chng_chk,al
+b3:
+cmp sample_v,23
+jne b4
+mov ax,entered_num
+mov ckh_spce,al
+b4:
+cmp sample_v,24
+jne b5
+mov ax,entered_num
+mov var_mouse_shoot,al
+b5:
+cmp sample_v,25
+jne b6
+mov ax,entered_num
+mov left_button,al
+b6:
+cmp sample_v,26
+jne b7
+mov ax,entered_num
+mov checkj3,al
+b7:
+cmp sample_v,27
+jne b8
+mov ax,entered_num
+mov chk_second_robo,al
+b8:
+cmp sample_v,28
+jne b9
+mov ax,entered_num
+mov chk_sec_jet,al
+b9:
+cmp sample_v,29
+jne c1
+mov ax,entered_num
+mov level2_done,al
+c1:
+cmp sample_v,30
+jne c2
+mov ax,entered_num
+mov varii1,al
+c2:
+cmp sample_v,31
+jne c3
+mov ax,entered_num
+mov var_for_time,al
+c3:
+cmp sample_v,32
+jne c4
+mov ax,entered_num
+mov var1,al
+c4:
+cmp sample_v,33
+jne c5
+mov ax,entered_num
+mov var2,al
+c5:
+cmp sample_v,34
+jne c6
+mov ax,entered_num
+mov var2j2,al
+c6:
+cmp sample_v,35
+jne c7
+mov ax,entered_num
+mov var2r1,al
+c7:
+cmp sample_v,36
+jne c8
+mov ax,entered_num
+mov var3,al
+c8:
+cmp sample_v,37
+jne c9
+mov ax,entered_num
+mov var4,al
+c9:
+cmp sample_v,38
+jne d1
+mov ax,entered_num
+mov var4j2,al
+d1:
+cmp sample_v,39
+jne d2
+mov ax,entered_num
+mov var4r1,al
+d2:
+cmp sample_v,40
+jne d3
+mov ax,entered_num
+mov var5,al
+d3:
+cmp sample_v,41
+jne d4
+mov ax,entered_num
+mov var5j2,al
+d4:
+cmp sample_v,42
+jne d5
+mov ax,entered_num
+mov var5r1,al
+d5:
+cmp sample_v,43
+jne d6
+mov ax,entered_num
+mov lifer1,al
+d6:
+cmp sample_v,44
+jne d7
+mov ax,entered_num
+mov lifej1,al
+d7:
+cmp sample_v,45
+jne d8
+mov ax,entered_num
+mov lifej2,al
+d8:
+cmp sample_v,46
+jne d9
+mov ax,entered_num
+mov lifej3,al
+d9:
+cmp sample_v,47
+jne e1
+mov ax,entered_num
+mov al_value,al
+e1:
+cmp sample_v,48
+jne e2
+mov ax,entered_num
+mov var1j3,al
+e2:
+cmp sample_v,49
+jne e3
+mov ax,entered_num
+mov var2j3,al
+e3:
+cmp sample_v,50
+jne e4
+mov ax,entered_num
+mov var5j3,al
+e4:
+cmp sample_v,51
+jne e5
+mov ax,entered_num
+mov var4j3,al
+e5:
+cmp sample_v,52
+jne e6
+mov ax,entered_num
+mov totall_scori,ax
+e6:
+cmp sample_v,53
+jne e7
+mov ax,entered_num
+mov chk_for_level2,al
+e7:
+;//new_variables
+cmp sample_v,54
+jne e8
+mov ax,entered_num
+mov var_coin_x,al
+e8:
+
+cmp sample_v,55
+jne e9
+mov ax,entered_num
+mov var4coin,al
+e9:
+ 
+cmp sample_v,56
+jne f1
+mov ax,entered_num
+mov var5coin,al
+f1: 
+
+cmp sample_v,57
+jne f2
+mov ax,entered_num
+mov var2coin,al
+f2: 
+
+cmp sample_v,58
+jne f3
+mov ax,entered_num
+mov var_co_x,al
+f3:
+
+cmp sample_v,59
+jne f4
+mov ax,entered_num
+mov chk_for_coin,al
+f4: 
+
+cmp sample_v,60
+jne f5
+mov ax,entered_num
+mov chk_for_level3,al
+f5: 
+
+cmp sample_v,61
+jne f6
+mov ax,entered_num
+mov chk_last2j3,al
+f6: 
+;//new_variables
+
+mov temp1,0
+mov entered_num,0
+jmp full_up
+backi:
+
+;reding name from name file
+mov cx,30
+mov ah,3Dh       ;select file handler
+mov dx,offset name_file
+mov al,2                  ;read/write both
+int 21h
+
+mov bx,ax
+mov ah,3Fh             ;reading
+mov dx,offset input_name
+int 21h
+
+mov ah,3Eh   ;closing file
+int 21h
+ret
+resuming endp ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+draw_level_2 proc ;???????????????????draw_level_2?????????????
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,17
+int 10h
+mov ah,13h  ;printing "level2"
+mov al,1
+mov cx,46
+mov bp,offset str_levl_2_1
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "level2"
+mov al,1
+mov cx,47
+mov bp,offset str_levl_2_2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "level2"
+mov al,1
+mov cx,47
+mov bp,offset str_levl_2_3
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "level2"
+mov al,1
+mov cx,47
+mov bp,offset str_levl_2_4
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "level2"
+mov al,1
+mov cx,48
+mov bp,offset str_levl_2_5
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+add dl,8
+int 10h
+mov ah,13h  ;printing "level2"
+mov al,1
+mov cx,40
+mov bp,offset str_levl_2_6
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+ret
+draw_level_2 endp ;????????????????????????????????????????????
+
+draw_level_3 proc ;<<<<<<<<<<<<<<<<<<<draw_level_3>>>>>>>>>>>>>>>
+mov bp,0
+mov ah,02h	;cursor
+mov dh,11
+mov dl,17
+int 10h
+mov ah,13h  ;printing "level3"
+mov al,1
+mov cx,46
+mov bp,offset str_levl_3_1
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "level3"
+mov al,1
+mov cx,47
+mov bp,offset str_levl_3_2
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "level3"
+mov al,1
+mov cx,47
+mov bp,offset str_levl_3_3
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "level3"
+mov al,1
+mov cx,48
+mov bp,offset str_levl_3_4
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+int 10h
+mov ah,13h  ;printing "level3"
+mov al,1
+mov cx,48
+mov bp,offset str_levl_3_5
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+
+mov bp,0
+mov ah,02h	;cursor
+inc dh
+add dl,8
+int 10h
+mov ah,13h  ;printing "level3"
+mov al,1
+mov cx,39
+mov bp,offset str_levl_3_6
+mov bh,0h  ;wese
+mov bl,135  ;colour
+int 10h
+ret
+draw_level_3 endp ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+saving_log proc ;<<<<<<<<<<<<<<<<<saving_log>>>>>>>>>>>>>>>>>
+mov si,0
+mov digits,0
+mov si,offset input_name
+agee:
+mov ch,13
+cmp [si],ch
+je baho
+inc digits
+inc si
+jmp agee
+baho:
+
+
+mov sound_var,0
+mov ax,0
+;mov cx,20   ;be it orginal bcz values can change their digits
+
+mov ah,3Dh       ;select file handler
+mov dx,offset logg
+mov al,2                  ;write both
+int 21h
+mov sound_var,ax
+mov bx,sound_var
+mov ah,042h      ;write
+;mov ah,40h      ;write
+mov al,2
+mov cx,0
+mov dx,0
+int 21h
+
+mov bx,sound_var
+mov ah,40h      ;write
+mov ch,0h
+mov cl,digits
+mov dx,offset input_name
+int 21h
+
+mov ah,3Eh   ;closing file
+int 21h
+
+;mov bx,offset input_name
+;agee:
+;mov ch,10
+;cmp [bx+si],ch
+;je baho
+;mov ch,[bx+si]
+;mov [si],ch
+;inc di
+;inc si
+;jmp agee
+;baho:
+
+mov si,0
+;mov di,0
+mov si,offset log_line
+
+;mov bh,10
+;mov [si],bh
+
+inc si
+mov bh,13
+mov [si],bh
+
+mov ax,totall_scori
+call double_digit
+
+inc si
+mov bh,','      ;coma after last digit of file
+mov [si],bh
+
+;saving date
+mov ax,0
+mov ah,2Ah
+int 21h
+
+mov month,dh
+mov year,cx
+
+mov ah,0
+mov al,dl     ;day
+call double_digit
+mov ah,0
+mov al,month     ;month
+call double_digit
+mov ax,year     ;year
+call double_digit
+
+;giving some 6 space at last
+inc si
+mov bh,','      ;coma after last digit of file
+mov [si],bh
+inc si
+mov bh,' '
+mov [si],bh
+inc si
+mov bh,' '
+mov [si],bh
+add si,32
+mov bh,13
+mov [si],bh
+
+;giving some 6 space at last
+
+;writing log
+
+mov ax,0
+;mov cx,50   ;be it orginal bcz values can change their digits
+
+mov ah,3Dh       ;select file handler
+mov dx,offset logg
+mov al,2                  ;write both
+int 21h
+mov sound_var,ax
+mov bx,sound_var
+mov ah,42h      ;write
+mov cx,0
+mov dx,0
+mov al,2
+int 21h
+
+mov ah,40h      ;write
+mov cx,50
+mov dx,offset log_line
+int 21h
+
+mov ah,3Eh   ;closing file
+int 21h
+ret
+saving_log endp ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+double_digit proc ;<<<<<<<<<<<<<<< double_digit >>>>>>>>>>>>>>>
+mov digits,0 
+mov bh,10
+luupingna:
+div bh 
+mov dh,0
+mov dl,ah
+mov ah,0
+push dx
+inc digits
+cmp al,0
+je bahina1
+jmp luupingna
+bahina1:
+
+
+poupingna:
+pop dx
+inc si
+mov dh,0
+add dl,48
+mov [si],dl
+dec digits
+cmp digits,0
+je bahina2
+jmp poupingna
+bahina2:
+inc si
+mov bh,','      ;coma after last digit of file
+mov [si],bh
+ret
+double_digit endp ;<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+end
+; bh colours
+; 0 black
+; 1 blue  ; 11 light blue ; 9 higher than light blue
+; 2 green ; 10 light green
+; 3 skyblue
+; 4 red   ; 12 light red
+; 6 light brown
+; 8 silver
+; 13 purple ; 5 light purple
+; 14 yellow
+; 7 white ; 15 off white
